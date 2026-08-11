@@ -1,0 +1,62 @@
+---
+import { languages, type Lang } from '../i18n/ui';
+import { alternatePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  /** Explicit destination for the other locale (e.g. a translated article). */
+  altPath?: string;
+}
+const { lang, path, altPath } = Astro.props;
+
+const hrefFor = (code: Lang) =>
+  code === lang ? path : (altPath ?? alternatePath(lang, code, path));
+---
+
+<div class="lang" data-lang-switcher>
+  <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false" data-lang-toggle>
+    <span>{languages[lang]}</span>
+    <svg class="lang__chev" viewBox="0 0 12 12" aria-hidden="true">
+      <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+  <div class="lang__menu" role="menu">
+    {
+      (Object.keys(languages) as Lang[]).map((code) => (
+        <a
+          href={hrefFor(code)}
+          role="menuitem"
+          aria-current={code === lang ? 'true' : 'false'}
+        >
+          {code === 'pt-br' ? 'Português (BR)' : 'English'}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const setup = () => {
+    document.querySelectorAll<HTMLElement>('[data-lang-switcher]').forEach((root) => {
+      const toggle = root.querySelector<HTMLButtonElement>('[data-lang-toggle]');
+      if (!toggle) return;
+      const close = () => {
+        root.dataset.open = 'false';
+        toggle.setAttribute('aria-expanded', 'false');
+      };
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = root.dataset.open === 'true';
+        root.dataset.open = open ? 'false' : 'true';
+        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      document.addEventListener('click', close);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+      });
+    });
+  };
+  setup();
+  document.addEventListener('astro:page-load', setup);
+</script>

@@ -1,0 +1,27 @@
+---
+import { type Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <div class="site-footer__name">Gabriel Tavares</div>
+      <p style="opacity:0.7; margin-top:8px; font-size:0.9rem;">
+        © {year} · {t('footer.tagline')}
+      </p>
+    </div>
+    <nav class="site-footer__links" aria-label={t('footer.email')}>
+      <a href="mailto:hello@gabrieltavares.design">{t('footer.email')}</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://medium.com/" target="_blank" rel="noopener noreferrer">Medium</a>
+    </nav>
+  </div>
+</footer>

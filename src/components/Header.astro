@@ -1,0 +1,29 @@
+---
+import { type Lang } from '../i18n/ui';
+import { useTranslations, localePath } from '../i18n/utils';
+import LangSwitcher from './LangSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+  active?: 'work' | 'texts';
+  path: string;
+  altPath?: string;
+}
+const { lang, active, path, altPath } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <span aria-hidden="true"></span>
+    <nav class="site-nav" aria-label={lang === 'pt-br' ? 'Navegação principal' : 'Primary'}>
+      <a href={localePath(lang, '')} aria-current={active === 'work' ? 'page' : undefined}>
+        {t('nav.work')}
+      </a>
+      <a href={localePath(lang, 'texts')} aria-current={active === 'texts' ? 'page' : undefined}>
+        {t('nav.texts')}
+      </a>
+    </nav>
+    <LangSwitcher lang={lang} path={path} altPath={altPath} />
+  </div>
+</header>

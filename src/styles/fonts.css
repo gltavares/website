@@ -1,0 +1,41 @@
+/*
+ * Self-hosted "Beni" display typeface (demo/trial version committed to the repo).
+ * When the full license is purchased, replace the files in /public/fonts/ with the
+ * licensed versions keeping the same file names — no code changes required.
+ */
+@font-face {
+  font-family: 'Beni';
+  src: url('/fonts/BeniLight.woff2') format('woff2'),
+    url('/fonts/BeniLight.woff') format('woff'),
+    url('/fonts/BeniLight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Beni';
+  src: url('/fonts/BeniRegular.woff2') format('woff2'),
+    url('/fonts/BeniRegular.woff') format('woff'),
+    url('/fonts/BeniRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Beni';
+  src: url('/fonts/BeniBold.woff2') format('woff2'),
+    url('/fonts/BeniBold.woff') format('woff'),
+    url('/fonts/BeniBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Beni';
+  src: url('/fonts/BeniBlack.woff2') format('woff2'),
+    url('/fonts/BeniBlack.woff') format('woff'),
+    url('/fonts/BeniBlack.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
