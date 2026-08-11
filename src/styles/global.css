@@ -255,12 +255,14 @@ button {
   font-family: var(--font-display);
   font-weight: 900;
   text-transform: uppercase;
-  line-height: 0.82;
+  line-height: 0.88;
   letter-spacing: 0.005em;
-  font-size: clamp(3.1rem, 15.5vw, 12.5rem);
+  /* desktop: the two words sit side by side on a single line */
+  font-size: clamp(2.4rem, 9.2vw, 7rem);
   display: flex;
-  flex-wrap: wrap;
-  column-gap: 0.22em;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  column-gap: 0.28em;
   row-gap: 0;
   will-change: opacity;
 }
@@ -606,6 +608,12 @@ button {
   }
   .row-2 {
     grid-row: span 1;
+  }
+  /* below desktop, stack the name to avoid horizontal overflow */
+  .hero__name {
+    flex-direction: column;
+    font-size: clamp(3rem, 13vw, 6rem);
+    line-height: 0.9;
   }
 }
 
