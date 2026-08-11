@@ -101,15 +101,19 @@ Pushes to `main` trigger an automatic build and deploy via the GitHub Actions wo
 
 For a detailed checklist (including custom domain setup), see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-## Custom domain (Squarespace → GitHub Pages)
+## Custom domain: `gltavares.com` (Squarespace → GitHub Pages)
 
-When the site is ready for a real domain (currently a placeholder in `astro.config.mjs`):
+The custom domain is already wired on the repo side:
 
-1. **GitHub:** Settings → Pages → **Custom domain** — enter your domain (e.g. `gabrieltavares.design`). GitHub creates a `CNAME` file automatically on the next deploy.
-2. **Astro config:** Update `site` in `astro.config.mjs` to the real domain URL (e.g. `https://gabrieltavares.design`). Keep `base: '/'`.
-3. **Squarespace DNS** — in your domain's DNS settings:
+- `public/CNAME` contains `gltavares.com` (copied to `dist/CNAME` on every build, which pins the Pages custom domain).
+- `astro.config.mjs` sets `site: 'https://gltavares.com'` with `base: '/'`.
 
-   **Apex domain (`example.com`):**
+Remaining one-time steps:
+
+1. **GitHub:** Settings → Pages → **Custom domain** — confirm it shows `gltavares.com` (the committed `CNAME` sets this automatically on deploy). Leave **Enforce HTTPS** off until DNS verifies.
+2. **Squarespace DNS** — Settings → Domains → `gltavares.com` → DNS Settings → add these Custom Records:
+
+   **Apex (`gltavares.com`):**
 
    | Type | Host | Value |
    |------|------|-------|
@@ -122,12 +126,15 @@ When the site is ready for a real domain (currently a placeholder in `astro.conf
    | AAAA | `@` | `2606:50c0:8002::153` |
    | AAAA | `@` | `2606:50c0:8003::153` |
 
-   **`www` subdomain:**
+   **`www` → apex redirect:**
 
    | Type | Host | Value |
    |------|------|-------|
    | CNAME | `www` | `gltavares.github.io` |
 
-4. **Previewing before the custom domain is live:** If you visit the raw GitHub Pages project URL (`https://gltavares.github.io/website/`), temporarily set `base: '/website'` in `astro.config.mjs`. Revert to `base: '/'` once the custom domain is active.
+3. **Remove Squarespace's default parking records** for `@` and `www` so they don't conflict. Keep unrelated records (e.g. MX for email).
+4. Wait for DNS to propagate (`dig gltavares.com +short` should return the four `185.199.x.153` IPs), then enable **Enforce HTTPS**.
+
+**Previewing before the custom domain is live:** if you open the raw project URL (`https://gltavares.github.io/website/`), temporarily set `base: '/website'` in `astro.config.mjs`; revert to `base: '/'` once the domain is active.
 
 DNS propagation can take up to 24 hours. Enable **Enforce HTTPS** in GitHub Pages settings after the domain verifies.

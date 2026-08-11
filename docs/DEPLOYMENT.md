@@ -35,29 +35,29 @@ Step-by-step instructions for deploying this Astro site to GitHub Pages and poin
 
 ## Checklist: Custom domain (Squarespace DNS → GitHub Pages)
 
-Use this when the site should be served from your own domain (e.g. `gabrieltavares.design`) instead of the default `github.io` URL.
+This site uses the apex domain **`gltavares.com`**, served from GitHub Pages (`gltavares.github.io`).
 
-- [ ] **1. Set the custom domain in GitHub**
+The repo side is already configured: `public/CNAME` pins `gltavares.com`, and `astro.config.mjs` sets `site: 'https://gltavares.com'` with `base: '/'`.
+
+- [ ] **1. Confirm the custom domain in GitHub**
   - Repo → **Settings → Pages → Custom domain**
-  - Enter the domain (apex or `www`, e.g. `gabrieltavares.design`)
-  - Save — GitHub will create a `CNAME` file on the next successful deploy
+  - It should read `gltavares.com` (the committed `CNAME` sets it automatically on deploy). If empty, enter `gltavares.com` and Save.
   - Wait for DNS check; enable **Enforce HTTPS** once verification completes
 
-- [ ] **2. Update `astro.config.mjs`**
+- [ ] **2. (Already done in the repo) `astro.config.mjs`**
   ```js
   export default defineConfig({
-    site: 'https://gabrieltavares.design', // your real domain
+    site: 'https://gltavares.com',
     base: '/',
     // …
   });
   ```
-  Commit and push to `main`.
 
 - [ ] **3. Configure DNS in Squarespace**
 
   Log in to Squarespace → **Settings → Domains → [your domain] → DNS Settings**.
 
-  **For the apex domain (`example.com`):** add four **A** records and four **AAAA** records:
+  **For the apex domain (`gltavares.com`):** add four **A** records and four **AAAA** records:
 
   | Type | Host / Name | Value |
   |------|-------------|-------|
@@ -83,7 +83,7 @@ Use this when the site should be served from your own domain (e.g. `gabrieltavar
 
 - [ ] **5. Wait for DNS propagation**
   - Can take from a few minutes up to 24–48 hours
-  - Verify with `dig example.com +noall +answer` or an online DNS checker
+  - Verify with `dig gltavares.com +noall +answer` or an online DNS checker
   - GitHub Pages should show the domain as verified under **Settings → Pages**
 
 - [ ] **6. Confirm HTTPS**
@@ -98,7 +98,7 @@ Use this when the site should be served from your own domain (e.g. `gabrieltavar
 
 | Scenario | `site` | `base` |
 |----------|--------|--------|
-| Custom domain at root (`https://gabrieltavares.design`) | `https://gabrieltavares.design` | `'/'` |
+| Custom domain at root (`https://gltavares.com`) | `https://gltavares.com` | `'/'` |
 | Raw GitHub Pages project URL (`https://gltavares.github.io/website/`) | `https://gltavares.github.io` | `'/website'` |
 
 **Symptoms of a wrong `base`:**
