@@ -5,6 +5,7 @@ lang: en
 kind: Article
 description: Refactoring UX and product operations across 75+ designers in an agile, multi-client environment at dti digital.
 tags: [DesignOps, Teams, Research]
+translationKey: designing-the-design-team
 ---
 
 Design in tech used to be simple. A few designers, a shared room, and a list of wireframes to draw. But as software development scaled through agile methodologies and B2B digital transformation, design found itself embedded deep within engineering-driven organizations.
