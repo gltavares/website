@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import { getWork } from '../data/work';
+import { type Lang } from '../i18n/ui';
+import { localePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+type ProjectItem = {
+  type: 'project';
+  title: string;
+  tags: string[];
+  media: string;
+  href?: string;
+};
+type TextItem = {
+  type: 'text';
+  title: string;
+  kind: string;
+  description?: string;
+  tags: string[];
+  href: string;
+  external: boolean;
+};
+type FeedItem = ProjectItem | TextItem;
+
+const projects: ProjectItem[] = getWork(lang).map((p) => ({ type: 'project', ...p }));
+
+const texts: TextItem[] = (await getCollection('texts', (e) => e.data.lang === lang))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((e) => ({
+    type: 'text',
+    title: e.data.title,
+    kind: e.data.kind,
+    description: e.data.description,
+    tags: e.data.tags,
+    href: e.data.external ?? localePath(lang, `texts/${e.id}`),
+    external: Boolean(e.data.external),
+  }));
+
+// Interleave projects and texts so the feed alternates big image cards with
+// shorter text cards, then append whatever is left over.
+const feed: FeedItem[] = [];
+let ti = 0;
+for (const project of projects) {
+  feed.push(project);
+  if (ti < texts.length) feed.push(texts[ti++]);
+}
+while (ti < texts.length) feed.push(texts[ti++]);
+---
+
+<div class="feed">
+  {
+    feed.map((item) => {
+      if (item.type === 'project') {
+        const Tag = item.href ? 'a' : 'div';
+        const extra = item.href
+          ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' }
+          : {};
+        return (
+          <Tag class="card card--project" {...extra}>
+            <div class="card__media">
+              <img src={item.media} alt={item.title} loading="lazy" width="1200" height="750" />
+            </div>
+            <div class="card__overlay">
+              <span class="card__title">{item.title}</span>
+              <ul class="tags">
+                {item.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+            </div>
+          </Tag>
+        );
+      }
+      const extra = item.external
+        ? { target: '_blank', rel: 'noopener noreferrer' }
+        : {};
+      return (
+        <a class="card card--text" href={item.href} {...extra}>
+          <span class="card__kind">
+            {item.kind}
+            {item.external ? <span class="arrow"> ↗</span> : null}
+          </span>
+          <span class="card__title">{item.title}</span>
+          <div class="card__reveal">
+            <div>
+              {item.description && <p class="card__subtext">{item.description}</p>}
+              <ul class="tags">
+                {item.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </a>
+      );
+    })
+  }
+</div>

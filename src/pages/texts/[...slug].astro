@@ -24,7 +24,7 @@ const enMatch = entry.data.translationKey
   : undefined;
 const altPath = enMatch
   ? enMatch.data.external ?? localePath('en', `texts/${enMatch.id}`)
-  : localePath('en', 'texts');
+  : localePath('en', '');
 ---
 
 <Base

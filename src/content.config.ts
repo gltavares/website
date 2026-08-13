@@ -15,6 +15,7 @@ const texts = defineCollection({
     // Shared id linking the PT-BR and EN versions of the same article, so the
     // language switcher can jump between translations.
     translationKey: z.string().optional(),
+    tags: z.array(z.string()).default([]),
   }),
 });
 

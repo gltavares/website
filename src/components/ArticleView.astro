@@ -18,24 +18,18 @@ const fmt = new Intl.DateTimeFormat(locale, {
 }).format(date);
 ---
 
-<main>
-  <div class="container">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href={localePath(lang, '')}>{t('breadcrumb.home')}</a>
-      <span class="breadcrumb__sep">/</span>
-      <a href={localePath(lang, 'texts')}>{t('nav.texts')}</a>
-      <span class="breadcrumb__sep">/</span>
-      <span aria-current="page">{title}</span>
-    </nav>
-  </div>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href={localePath(lang, '')}>{t('breadcrumb.home')}</a>
+  <span class="breadcrumb__sep">/</span>
+  <span aria-current="page">{title}</span>
+</nav>
 
-  <article class="article">
-    <header class="article__header">
-      <h1 class="article__title">{title}</h1>
-      <div class="article__meta">{fmt} · {kind}</div>
-    </header>
-    <div class="prose">
-      <slot />
-    </div>
-  </article>
-</main>
+<article class="article">
+  <header class="article__header">
+    <h1 class="article__title">{title}</h1>
+    <div class="article__meta">{fmt} · {kind}</div>
+  </header>
+  <div class="prose">
+    <slot />
+  </div>
+</article>

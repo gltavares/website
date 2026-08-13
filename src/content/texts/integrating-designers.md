@@ -5,6 +5,7 @@ lang: en
 kind: Article
 description: Originally published on Medium (in Portuguese).
 external: https://medium.com/dtidesign/como-integrar-designers-atrav%C3%A9s-de-produtos-1b298e91df3d
+tags: [Design, Product, Teams]
 ---
 
 Published externally on Medium.

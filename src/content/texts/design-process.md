@@ -5,6 +5,7 @@ lang: en
 kind: Article
 description: A sample article showing the text page layout — replace it with your real writing.
 translationKey: notes-on-design-process
+tags: [Process, Design, UX]
 ---
 
 > Sample content. This article exists to demonstrate the text page layout (Medium style). Replace it with your real writing.

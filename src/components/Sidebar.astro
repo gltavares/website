@@ -1,0 +1,45 @@
+---
+import { type Lang } from '../i18n/ui';
+import { useTranslations, localePath } from '../i18n/utils';
+import LangSwitcher from './LangSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+  active?: 'work' | 'about';
+  path: string;
+  altPath?: string;
+}
+const { lang, active, path, altPath } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+const linkedin = 'https://www.linkedin.com/in/gltavares/';
+---
+
+<aside class="sidebar">
+  <a href={localePath(lang, '')} aria-label="Gabriel Tavares" style="align-self:flex-start;">
+    <h1 class="sidebar__name">
+      <span>Gabriel</span>
+      <span>Tavares</span>
+    </h1>
+  </a>
+
+  <p class="sidebar__desc">{t('sidebar.description')}</p>
+
+  <nav class="sidebar__nav" aria-label={lang === 'pt-br' ? 'Navegação' : 'Navigation'}>
+    <a href={localePath(lang, '')} aria-current={active === 'work' ? 'page' : undefined}>
+      {t('nav.work')}
+    </a>
+    <a href={localePath(lang, 'about')} aria-current={active === 'about' ? 'page' : undefined}>
+      {t('nav.about')}
+    </a>
+  </nav>
+
+  <div class="sidebar__bottom">
+    <LangSwitcher lang={lang} path={path} altPath={altPath} />
+    <div class="sidebar__meta">
+      <span>© {year}</span>
+      <span class="sidebar__sep">·</span>
+      <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</aside>

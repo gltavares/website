@@ -1,0 +1,66 @@
+---
+import { type Lang } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const pt = lang === 'pt-br';
+---
+
+<h1 class="page-title">{t('about.title')}</h1>
+
+<div class="article" style="margin-top:34px;">
+  <div class="prose">
+    {
+      pt ? (
+        <>
+          <p>
+            Olá, meu nome é Gabriel. Sou product designer e triatleta amador, com muito interesse
+            em metodologias e em como melhorar o processo de design.
+          </p>
+          <p>
+            Gosto de resolver problemas sob todas as perspectivas e conduzi-los até a entrega, com
+            uma mentalidade ágil. Com um repertório amplo — design visual, facilitação de
+            workshops, pesquisa e gestão de produto — transito entre processos e áreas dentro de
+            produtos digitais.
+          </p>
+          <p>
+            Nos últimos anos, tive a oportunidade de trabalhar com times multidisciplinares
+            excelentes, gerando valor para diversos clientes e negócios. Também liderei e defini
+            fluxos de desenvolvimento (produto e design) para otimizar as fases de discovery e
+            entrega, sempre buscando formas melhores de criar produtos.
+          </p>
+          <h2>Habilidades</h2>
+          <p>Figma, Sketch, Notion, Illustrator, Photoshop, HTML &amp; CSS.</p>
+          <h2>Clientes</h2>
+          <p>Localiza, Vale, Ale, Hermes Pardini, Pottencial, Supermix, Tribanco, Landor &amp; Fitch.</p>
+        </>
+      ) : (
+        <>
+          <p>
+            Hi, my name is Gabriel. I'm a product designer and amateur triathlete, with a strong
+            interest in methodologies and in how to improve the design process.
+          </p>
+          <p>
+            I love solving problems from every angle and driving them to delivery with an agile
+            mindset. With a wide range of skills — visual design, workshop facilitation, research
+            and product management — I move between processes and areas inside digital products.
+          </p>
+          <p>
+            In the past years I've had the opportunity to work with outstanding multidisciplinary
+            teams, generating value for many clients and businesses. I've also led and defined
+            product and design development flows to optimize discovery and delivery, always looking
+            for better ways to create products.
+          </p>
+          <h2>Skills</h2>
+          <p>Figma, Sketch, Notion, Illustrator, Photoshop, HTML &amp; CSS.</p>
+          <h2>Clients</h2>
+          <p>Localiza, Vale, Ale, Hermes Pardini, Pottencial, Supermix, Tribanco, Landor &amp; Fitch.</p>
+        </>
+      )
+    }
+  </div>
+</div>

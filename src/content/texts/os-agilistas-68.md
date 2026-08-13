@@ -5,6 +5,7 @@ lang: pt-br
 kind: Podcast
 description: Participação no podcast Os Agilistas.
 external: https://osagilistas.com/podcast/68-design-thinking-remoto/
+tags: [Podcast, Design Thinking, Remoto]
 ---
 
 Episódio de podcast publicado em Os Agilistas.

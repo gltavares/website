@@ -5,6 +5,7 @@ lang: pt-br
 kind: Artigo
 description: Um texto de exemplo mostrando o layout de artigo — substitua pelo seu conteúdo real.
 translationKey: notes-on-design-process
+tags: [Processo, Design, UX]
 ---
 
 > Conteúdo de exemplo. Este artigo existe para demonstrar o layout da página de texto (estilo Medium). Troque pelo seu conteúdo real.
