@@ -62,14 +62,21 @@ while (ti < texts.length) feed.push(texts[ti++]);
           : {};
         return (
           <Tag class="card card--project" {...extra}>
-            <span class="card__title">{item.title}</span>
-            <ul class="tags">
-              {item.tags.map((tag) => (
-                <li class="tag">{tag}</li>
-              ))}
-            </ul>
-            <div class="card__media">
-              <img src={item.media} alt={item.title} loading="lazy" width="1280" height="720" />
+            <img
+              class="card__bg"
+              src={item.media}
+              alt={item.title}
+              loading="lazy"
+              width="1280"
+              height="720"
+            />
+            <div class="card__body">
+              <span class="card__title">{item.title}</span>
+              <ul class="tags">
+                {item.tags.map((tag) => (
+                  <li class="tag">{tag}</li>
+                ))}
+              </ul>
             </div>
           </Tag>
         );

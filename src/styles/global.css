@@ -107,6 +107,11 @@ button {
   padding: clamp(28px, 5vw, 52px) var(--gutter) clamp(18px, 3vw, 30px);
 }
 
+.masthead a {
+  display: block;
+  width: 100%;
+}
+
 .masthead__name {
   display: flex;
   justify-content: space-between;
@@ -363,24 +368,33 @@ button {
   color: var(--ink);
 }
 
-/* project image goes below the text, 16:9, no overlay */
-.card__media {
-  margin-top: 20px;
-  aspect-ratio: 16 / 9;
+/* project card: image is the card background, text overlaid at the top */
+.card--project {
+  position: relative;
   overflow: hidden;
-  border-radius: 10px;
-  background: var(--hairline);
+  padding: 0;
+  aspect-ratio: 16 / 9;
+  color: var(--ink);
 }
 
-.card__media img {
+.card__bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 0;
   transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.card--project:hover .card__media img {
+.card--project:hover .card__bg {
   transform: scale(1.1);
+}
+
+.card__body {
+  position: relative;
+  z-index: 1;
+  padding: 24px 26px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -508,8 +522,11 @@ button {
   .masthead__name {
     flex-direction: column;
     gap: 0;
-    align-items: flex-start;
-    font-size: clamp(3rem, 17vw, 6rem);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    font-size: clamp(3.5rem, 24vw, 8rem);
     white-space: nowrap;
   }
   .content {
