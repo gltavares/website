@@ -1,0 +1,17 @@
+---
+import { type Lang } from '../i18n/ui';
+import LangSwitcher from './LangSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  altPath?: string;
+}
+const { lang, path, altPath } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <LangSwitcher lang={lang} path={path} altPath={altPath} />
+  <span>© {year}</span>
+</footer>

@@ -4,7 +4,7 @@ date: 2020-05-01
 lang: pt-br
 kind: Podcast
 description: Participação no podcast Os Agilistas.
-external: https://osagilistas.com/podcast/68-design-thinking-remoto/
+external: https://open.spotify.com/episode/3BLshlAGugDmNS2NLd9HoB
 tags: [Podcast, Design Thinking, Remoto]
 ---
 

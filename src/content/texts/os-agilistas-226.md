@@ -4,7 +4,7 @@ date: 2022-06-01
 lang: pt-br
 kind: Podcast
 description: Participação no podcast Os Agilistas.
-external: https://osagilistas.com/podcast/226-a-solucao-e-sempre-digital/
+external: https://open.spotify.com/episode/6Jp8lXJ9xvleZOOjrpPmT9
 tags: [Podcast, Ágil, Produto]
 ---
 

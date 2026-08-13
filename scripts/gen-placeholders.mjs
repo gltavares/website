@@ -5,14 +5,15 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 const out = new URL('../public/work/', import.meta.url);
 mkdirSync(out, { recursive: true });
 
+// Saturated duotone gradients for the project artwork.
 const items = [
-  { name: 'car-rental', a: '#e7efe9', b: '#cfe0d4', ink: '#2f5c46' },
-  { name: 'scannable', a: '#e9eef7', b: '#d3dff2', ink: '#2f4c7a' },
-  { name: 'design-systems', a: '#f0ece7', b: '#e2d8cd', ink: '#6b5a45' },
-  { name: 'callcenter', a: '#efe9ef', b: '#e0d2e2', ink: '#5c3f5f' },
-  { name: 'destrava', a: '#e8efef', b: '#d0e2e2', ink: '#2f5c5c' },
-  { name: 'design-ops', a: '#efeae6', b: '#e6d9cf', ink: '#6b4f3a' },
-  { name: 'principles', a: '#eceef0', b: '#d8dde2', ink: '#3b4652' },
+  { name: 'car-rental', a: '#1f9d63', b: '#8ff0bd', ink: '#0c3d26' },
+  { name: 'scannable', a: '#2f5fe0', b: '#8fb3ff', ink: '#122a63' },
+  { name: 'design-systems', a: '#e0842a', b: '#ffcf8f', ink: '#5c3a12' },
+  { name: 'callcenter', a: '#8b39c4', b: '#d3a6ef', ink: '#3d1660' },
+  { name: 'destrava', a: '#1aa3a3', b: '#8ff0f0', ink: '#0c3d3d' },
+  { name: 'design-ops', a: '#e0532a', b: '#ffab8f', ink: '#5c1c0c' },
+  { name: 'principles', a: '#2f7fb0', b: '#8fd0f0', ink: '#123a5c' },
 ];
 
 const svg = ({ a, b, ink }) => `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none">

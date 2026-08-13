@@ -62,23 +62,19 @@ while (ti < texts.length) feed.push(texts[ti++]);
           : {};
         return (
           <Tag class="card card--project" {...extra}>
+            <span class="card__title">{item.title}</span>
+            <ul class="tags">
+              {item.tags.map((tag) => (
+                <li class="tag">{tag}</li>
+              ))}
+            </ul>
             <div class="card__media">
-              <img src={item.media} alt={item.title} loading="lazy" width="1200" height="750" />
-            </div>
-            <div class="card__overlay">
-              <span class="card__title">{item.title}</span>
-              <ul class="tags">
-                {item.tags.map((tag) => (
-                  <li class="tag">{tag}</li>
-                ))}
-              </ul>
+              <img src={item.media} alt={item.title} loading="lazy" width="1280" height="720" />
             </div>
           </Tag>
         );
       }
-      const extra = item.external
-        ? { target: '_blank', rel: 'noopener noreferrer' }
-        : {};
+      const extra = item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
       return (
         <a class="card card--text" href={item.href} {...extra}>
           <span class="card__kind">
@@ -86,16 +82,12 @@ while (ti < texts.length) feed.push(texts[ti++]);
             {item.external ? <span class="arrow"> ↗</span> : null}
           </span>
           <span class="card__title">{item.title}</span>
-          <div class="card__reveal">
-            <div>
-              {item.description && <p class="card__subtext">{item.description}</p>}
-              <ul class="tags">
-                {item.tags.map((tag) => (
-                  <li class="tag">{tag}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {item.description && <p class="card__subtext">{item.description}</p>}
+          <ul class="tags">
+            {item.tags.map((tag) => (
+              <li class="tag">{tag}</li>
+            ))}
+          </ul>
         </a>
       );
     })
