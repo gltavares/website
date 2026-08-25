@@ -6,5 +6,11 @@
       "name": "dev",
       "command": "npm run dev"
     }
+  ],
+  "mcpServerAllowlist": [
+    {
+      "name": "figma-console",
+      "command": "npx -y figma-console-mcp@latest"
+    }
   ]
 }
