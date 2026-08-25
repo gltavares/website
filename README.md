@@ -93,6 +93,23 @@ The Beni display font in `public/fonts/` is the **demo/trial** version. To use t
 - Near-white background (`#f2f2f0`) with black ink.
 - Single blue accent `#1e6ffc`, used subtly for interaction states.
 
+## Figma integration (MCP)
+
+This repo is configured to use the [Figma Console MCP](https://github.com/southleft/figma-console-mcp) server so AI assistants (Cursor, Claude, etc.) can read and extract designs from Figma. The config lives in `.cursor/mcp.json` and runs the server via `npx` — no install step required.
+
+**Setup:**
+
+1. Create a Figma **personal access token**: Figma → Settings → Security → *Personal access tokens*. Give it at least these read scopes: **File content**, **File versions**, **Variables** (add **Comments: read/write** if you want to post comments). Copy it — it starts with `figd_`.
+2. Provide it as the `FIGMA_ACCESS_TOKEN` environment variable (it is referenced via `${env:FIGMA_ACCESS_TOKEN}` and is **never stored in the repo**):
+   - **Local Cursor:** add `export FIGMA_ACCESS_TOKEN=figd_…` to your shell profile (`~/.zshrc`/`~/.bashrc`) and restart Cursor.
+   - **Cloud agents:** add `FIGMA_ACCESS_TOKEN` in the Secrets panel.
+3. Reload Cursor (or restart the agent). The `figma-console` tools (e.g. `figma_get_file`, `figma_export_tokens`) become available.
+
+**Notes:**
+
+- **Reading/extraction** works headlessly through the Figma REST API using the token.
+- **Design creation, edits, and real-time console monitoring** additionally require **Figma Desktop** running the *Figma Desktop Bridge* plugin, so those tools only work on a machine with Figma Desktop open (your local setup) — not on the headless cloud VM.
+
 ## Deployment
 
 Pushes to `main` trigger an automatic build and deploy via the GitHub Actions workflow in `.github/workflows/deploy.yml`.
