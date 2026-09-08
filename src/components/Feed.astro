@@ -41,8 +41,8 @@ const texts: TextItem[] = (await getCollection('texts', (e) => e.data.lang === l
     external: Boolean(e.data.external),
   }));
 
-// Interleave projects and texts so the feed alternates big image cards with
-// shorter text cards, then append whatever is left over.
+// Interleave projects and texts so the two-column grid pairs an image card
+// with a text card on each row, then append whatever is left over.
 const feed: FeedItem[] = [];
 let ti = 0;
 for (const project of projects) {
@@ -67,8 +67,8 @@ while (ti < texts.length) feed.push(texts[ti++]);
               src={item.media}
               alt={item.title}
               loading="lazy"
-              width="1280"
-              height="720"
+              width="1200"
+              height="900"
             />
             <div class="card__body">
               <span class="card__title">{item.title}</span>
