@@ -9,9 +9,14 @@ const texts = defineCollection({
     lang: z.enum(['pt-br', 'en']),
     kind: z.string().default('Artigo'),
     description: z.string().optional(),
+    // Optional muted footer under the title on feed cards (series, publication).
+    subtitle: z.string().optional(),
     // If set, the entry links straight to an external publication instead of
     // rendering a local article page.
     external: z.string().url().optional(),
+    // Optional link to the originally published version (shown as a card at
+    // the end of the local article).
+    original: z.string().url().optional(),
     // Shared id linking the PT-BR and EN versions of the same article, so the
     // language switcher can jump between translations.
     translationKey: z.string().optional(),

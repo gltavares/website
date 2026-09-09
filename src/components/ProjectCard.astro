@@ -1,0 +1,57 @@
+---
+interface Props {
+  title: string;
+  accent: string;
+  href?: string;
+  media?: string;
+  /** Client name shown under the title on feed cards */
+  client?: string;
+  /** Case hero: media only, no title overlay */
+  heroOnly?: boolean;
+  /** Contain the full mockup instead of cropping to a corner */
+  contain?: boolean;
+  /** Extra top inset so a tall mockup sits ≥40px below the card edge */
+  mediaInset?: boolean;
+  /** Shared view-transition name (feed card ↔ case hero) */
+  transitionName?: string;
+}
+const {
+  title,
+  accent,
+  href,
+  media,
+  client,
+  heroOnly = false,
+  contain = false,
+  mediaInset = false,
+  transitionName = `project-${title}`,
+} = Astro.props;
+const Tag = href ? 'a' : 'div';
+const extra = href ? { href } : {};
+---
+
+<Tag
+  class:list={[
+    'project-card',
+    heroOnly && 'project-card--hero',
+    contain && 'project-card--contain',
+    mediaInset && 'project-card--media-inset',
+  ]}
+  style={`--card-accent: ${accent}`}
+  {...extra}
+  transition:name={transitionName}
+>
+  {
+    media ? (
+      <img class="project-card__media" src={media} alt="" loading="lazy" width="800" height="500" />
+    ) : null
+  }
+  {
+    !heroOnly ? (
+      <>
+        {client ? <p class="project-card__label">{client}</p> : null}
+        <h2 class="visually-hidden">{title}</h2>
+      </>
+    ) : null
+  }
+</Tag>

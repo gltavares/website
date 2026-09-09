@@ -1,0 +1,122 @@
+---
+export interface GalleryItem {
+  src: string;
+  alt?: string;
+  size?: 'wide' | 'square';
+  crop?: 'contain' | 'phone-top' | 'phone-bottom';
+  overlay?: string;
+}
+
+interface Props {
+  items: GalleryItem[];
+  strip?: boolean;
+}
+const { items, strip = false } = Astro.props;
+
+const rows: GalleryItem[][] = [];
+if (!strip) {
+  for (const item of items) {
+    if (item.size === 'square' || item.crop) {
+      const last = rows.at(-1);
+      if (last?.length === 1 && (last[0].size === 'square' || last[0].crop) && !last[0].overlay) {
+        last.push(item);
+        continue;
+      }
+    }
+    rows.push([item]);
+  }
+}
+---
+
+{
+  strip ? (
+    <div class="case-gallery case-gallery--strip" data-case-strip>
+      {items.map((item) => (
+        <div class="case-frame case-frame--shot">
+          <img src={item.src} alt={item.alt ?? ''} loading="lazy" width="1200" height="800" />
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="case-gallery">
+      {rows.map((row) =>
+        row.length === 2 ? (
+          <div class="case-gallery__row">
+            {row.map((item) => (
+              <div class:list={['case-frame', item.crop && `case-frame--${item.crop}`]}>
+                <img src={item.src} alt={item.alt ?? ''} loading="lazy" width="800" height="1600" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            class:list={[
+              'case-frame',
+              row[0].overlay && 'case-frame--stage',
+              !row[0].overlay && row[0].size === 'wide' && 'case-frame--wide',
+            ]}
+          >
+            <img src={row[0].src} alt={row[0].alt ?? ''} loading="lazy" width="1600" height="1066" />
+            {row[0].overlay ? (
+              <img
+                class="case-frame__peek"
+                src={row[0].overlay}
+                alt=""
+                loading="lazy"
+                width="210"
+                height="428"
+              />
+            ) : null}
+          </div>
+        ),
+      )}
+    </div>
+  )
+}
+
+<script>
+  const bindStrip = (root: HTMLElement) => {
+    if (root.dataset.bound === 'true') return;
+    root.dataset.bound = 'true';
+
+    let dragging = false;
+    let startX = 0;
+    let startScroll = 0;
+    let pointerId = -1;
+
+    const endDrag = (event: PointerEvent) => {
+      if (event.pointerId !== pointerId) return;
+      dragging = false;
+      pointerId = -1;
+      root.classList.remove('is-dragging');
+      if (root.hasPointerCapture(event.pointerId)) {
+        root.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    root.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch' || event.button !== 0) return;
+      dragging = true;
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      startScroll = root.scrollLeft;
+      root.classList.add('is-dragging');
+      root.setPointerCapture(event.pointerId);
+    });
+
+    root.addEventListener('pointermove', (event) => {
+      if (!dragging || event.pointerId !== pointerId) return;
+      root.scrollLeft = startScroll - (event.clientX - startX);
+    });
+
+    root.addEventListener('pointerup', endDrag);
+    root.addEventListener('pointercancel', endDrag);
+  };
+
+  const setup = () => {
+    document.querySelectorAll<HTMLElement>('[data-case-strip]').forEach(bindStrip);
+  };
+
+  setup();
+  document.addEventListener('astro:page-load', setup);
+</script>

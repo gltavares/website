@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  kind: string;
+  href: string;
+  external?: boolean;
+  tags?: string[];
+  subtitle?: string;
+  media?: string;
+  /** Shared view-transition name for in-site text opens */
+  transitionName?: string;
+}
+const { title, kind, href, external, transitionName } = Astro.props;
+
+const typeLabel = kind.trim();
+
+const extra = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a
+  class="text-card"
+  href={href}
+  {...extra}
+  transition:name={transitionName}
+>
+  <p class="text-card__label">
+    {typeLabel}
+    {external ? (
+      <img
+        class="icon-arrow"
+        src={`${import.meta.env.BASE_URL}icons/arrow-link.png`}
+        alt=""
+        width="20"
+        height="20"
+      />
+    ) : null}
+  </p>
+  <h2 class="text-card__title">{title}</h2>
+</a>

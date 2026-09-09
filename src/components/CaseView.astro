@@ -1,0 +1,91 @@
+---
+import type { Lang } from '../i18n/ui';
+import type { ProjectCase } from '../data/projects';
+import ProjectCard from './ProjectCard.astro';
+import CaseGallery from './CaseGallery.astro';
+
+interface Props {
+  lang: Lang;
+  project: ProjectCase;
+}
+const { lang, project } = Astro.props;
+const articleLabel = lang === 'pt-br' ? 'Artigo Landor' : 'Landor article';
+---
+
+<article class="case">
+  {
+    project.facts?.length ? (
+      <header class="case__intro">
+        <h1 class="visually-hidden">{project.title}</h1>
+        <dl class="case__facts">
+          {project.facts.map((fact) => (
+            <div class="case__fact">
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+        {project.lead ? <p class="case__lead">{project.lead}</p> : null}
+      </header>
+    ) : (
+      <>
+        {project.heroMedia ? (
+          <ProjectCard
+            title={project.title}
+            accent={project.accent}
+            media={project.heroMedia}
+            heroOnly
+            contain={project.heroFit === 'contain'}
+            transitionName={`project-${project.slug}`}
+          />
+        ) : null}
+        <header class="case__header">
+          <h1 class="case__title">{project.title}</h1>
+          <p class="case__meta">
+            {project.client}
+            <span aria-hidden="true"> </span>
+            {project.role}
+          </p>
+        </header>
+      </>
+    )
+  }
+
+  {project.gallery?.length ? <CaseGallery items={project.gallery} /> : null}
+
+  <div class="case__body prose">
+    {
+      project.sections.map((section) => (
+        <section>
+          {section.heading ? <h2>{section.heading}</h2> : null}
+          {section.body ? <p>{section.body}</p> : null}
+          {section.bullets?.length ? (
+            <ul>
+              {section.bullets.map((b) => (
+                <li>{b}</li>
+              ))}
+            </ul>
+          ) : null}
+        </section>
+      ))
+    }
+    {
+      project.externalUrl ? (
+        <p>
+          <a class="icon-link" href={project.externalUrl} target="_blank" rel="noopener noreferrer">
+            <span>{articleLabel}</span>
+            <img
+              class="icon-arrow"
+              src={`${import.meta.env.BASE_URL}icons/arrow-link.png`}
+              alt=""
+              width="20"
+              height="20"
+            />
+          </a>
+        </p>
+      ) : null
+    }
+  </div>
+
+  {project.galleryStrip?.length ? <CaseGallery items={project.galleryStrip} strip /> : null}
+</article>

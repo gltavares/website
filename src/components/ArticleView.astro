@@ -1,35 +1,81 @@
 ---
 import { type Lang } from '../i18n/ui';
-import { useTranslations, localePath } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
   title: string;
   date: Date;
-  kind: string;
+  body: string;
+  original?: string;
 }
-const { lang, title, date, kind } = Astro.props;
-const t = useTranslations(lang);
+const { lang, title, date, body, original } = Astro.props;
 const locale = lang === 'pt-br' ? 'pt-BR' : 'en-US';
 const fmt = new Intl.DateTimeFormat(locale, {
   day: 'numeric',
-  month: 'long',
+  month: 'short',
   year: 'numeric',
+  timeZone: 'UTC',
 }).format(date);
+const words = body.trim().split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 200));
+const timeValue = lang === 'pt-br' ? `${minutes} min de leitura` : `${minutes} min read`;
+const originalLabel = `${title} (Original)`;
 ---
 
-<nav class="breadcrumb" aria-label="Breadcrumb">
-  <a href={localePath(lang, '')}>{t('breadcrumb.home')}</a>
-  <span class="breadcrumb__sep">/</span>
-  <span aria-current="page">{title}</span>
-</nav>
-
 <article class="article">
-  <header class="article__header">
+  <header class="article__intro">
     <h1 class="article__title">{title}</h1>
-    <div class="article__meta">{fmt} · {kind}</div>
+    <dl class="case__facts">
+      <div class="case__fact">
+        <dt>date</dt>
+        <dd>{fmt}</dd>
+      </div>
+      <div class="case__fact">
+        <dt>time</dt>
+        <dd>{timeValue}</dd>
+      </div>
+    </dl>
   </header>
-  <div class="prose">
+
+  <div class="article__body prose">
     <slot />
   </div>
+
+  {
+    original ? (
+      <a
+        class="article__original"
+        href={original}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span>{originalLabel}</span>
+        <img
+          class="icon-arrow"
+          src={`${import.meta.env.BASE_URL}icons/arrow-link.png`}
+          alt=""
+          width="20"
+          height="20"
+        />
+      </a>
+    ) : null
+  }
 </article>
+
+<script>
+  function captionFigures() {
+    document.querySelectorAll<HTMLElement>('.article .prose p:has(> img:only-child)').forEach((p) => {
+      if (p.nextElementSibling?.classList.contains('article__caption')) return;
+      const img = p.querySelector('img');
+      const alt = img?.getAttribute('alt')?.trim();
+      if (!alt) return;
+      const caption = document.createElement('p');
+      caption.className = 'article__caption';
+      caption.textContent = alt;
+      p.after(caption);
+    });
+  }
+
+  captionFigures();
+  document.addEventListener('astro:page-load', captionFigures);
+</script>

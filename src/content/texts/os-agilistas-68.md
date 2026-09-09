@@ -1,8 +1,9 @@
 ---
-title: "#68 Design Thinking Remoto — Os Agilistas"
+title: "#68 Design Thinking Remoto"
 date: 2020-05-01
 lang: pt-br
 kind: Podcast
+subtitle: Os Agilistas
 description: Participação no podcast Os Agilistas.
 external: https://open.spotify.com/episode/3BLshlAGugDmNS2NLd9HoB
 tags: [Podcast, Design Thinking, Remoto]

@@ -1,0 +1,25 @@
+---
+import Base from '../../../layouts/Base.astro';
+import CaseView from '../../../components/CaseView.astro';
+import { getProjectCase, type ProjectSlug } from '../../../data/projects';
+
+export function getStaticPaths() {
+  const slugs: ProjectSlug[] = ['scannable', 'ridesharing', 'call-center', 'vale'];
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const project = getProjectCase(slug as ProjectSlug, 'en');
+if (!project) return Astro.redirect('/en/');
+---
+
+<Base
+  lang="en"
+  title={`${project.title} — Gabriel Tavares`}
+  description={project.name}
+  active="work"
+  compact
+  altPath={`/work/${project.slug}`}
+>
+  <CaseView lang="en" project={project} />
+</Base>

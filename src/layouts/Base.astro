@@ -1,7 +1,9 @@
 ---
+import { ClientRouter, fade, slide } from 'astro:transitions';
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
+import AnimatedTabs from '../components/AnimatedTabs.astro';
 import { type Lang } from '../i18n/ui';
 import { localePath } from '../i18n/utils';
 
@@ -10,25 +12,33 @@ interface Props {
   title: string;
   description?: string;
   active?: 'work' | 'about';
-  /** Explicit destination for the language switcher's other locale. */
   altPath?: string;
+  /** Hide the giant masthead (about / case / text pages) */
+  compact?: boolean;
 }
-const { lang, title, description, active, altPath } = Astro.props;
+const { lang, title, description, active, altPath, compact = false } = Astro.props;
 const htmlLang = lang === 'pt-br' ? 'pt-BR' : 'en';
 const path = Astro.url.pathname;
+const homeHref = localePath(lang, '');
+const showBack = compact && active !== 'about';
+const showRail = !compact;
 const desc =
   description ??
   (lang === 'pt-br'
     ? 'Portfólio e textos de Gabriel Tavares, product designer.'
     : 'Portfolio and writing of Gabriel Tavares, product designer.');
+
+const panelMotion = slide({ duration: '280ms' });
+const chromeFade = fade({ duration: '180ms' });
 ---
 
 <!doctype html>
-<html lang={htmlLang}>
+<html lang={htmlLang} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.png`} type="image/png" />
+    <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}favicon.png`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -41,24 +51,222 @@ const desc =
     <meta property="og:description" content={desc} />
     <meta property="og:type" content="website" />
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
   </head>
-  <body>
-    <header class="masthead">
-      <a href={localePath(lang, '')} aria-label="Gabriel Tavares">
-        <span class="masthead__name">
-          <span>Gabriel</span>
-          <span>Tavares</span>
-        </span>
-      </a>
-    </header>
+  <body class:list={[compact && 'body--compact', !compact && 'body--home']}>
+    {
+      !compact ? (
+        <section class="parallax" data-parallax transition:animate={chromeFade}>
+          <div class="parallax__sticky">
+            <header class="masthead" data-masthead>
+              <a class="masthead__link" href={homeHref} aria-label="Gabriel Tavares">
+                <span class="masthead__name" data-parallax-y data-masthead-name>Gabriel Tavares</span>
+              </a>
+            </header>
+          </div>
+        </section>
+      ) : null
+    }
 
-    <div class="layout">
-      <Sidebar lang={lang} active={active} />
-      <div class="content">
-        <slot />
+    {/* One shell for every page: chrome → layout → footer */}
+    <section
+      class:list={['site', compact && 'site--compact']}
+      data-home-panel={!compact ? '' : undefined}
+    >
+      <header class="chrome">
+        <div class="chrome__nav">
+          {
+            showBack ? (
+              <a
+                class="chrome__back"
+                href={homeHref}
+                data-back-link
+                transition:name="back-control"
+                transition:animate={chromeFade}
+                aria-label={lang === 'pt-br' ? 'Voltar' : 'Back'}
+              >
+                <img
+                  class="icon-arrow"
+                  src={`${import.meta.env.BASE_URL}icons/arrow-back.png`}
+                  alt=""
+                  width="20"
+                  height="20"
+                />
+              </a>
+            ) : null
+          }
+          <AnimatedTabs lang={lang} active={active} />
+        </div>
+      </header>
+
+      <div class="frame" transition:animate={panelMotion} transition:name="main-panel">
+        <div class:list={['layout', !showRail && 'layout--single']}>
+          {
+            showRail ? (
+              <Sidebar lang={lang}>
+                <Footer lang={lang} path={path} altPath={altPath} />
+              </Sidebar>
+            ) : null
+          }
+          <div class="content">
+            <slot />
+          </div>
+        </div>
+
+        {!showRail ? <Footer lang={lang} path={path} altPath={altPath} /> : null}
       </div>
-    </div>
+    </section>
 
-    <Footer lang={lang} path={path} altPath={altPath} />
+    <script>
+      const NAV_FLAG = 'gt:in-app-nav';
+
+      const isHomePath = (pathname: string) => {
+        const p = pathname.replace(/\/+$/, '') || '/';
+        return p === '/' || p === '/en';
+      };
+
+      const scrollToHomePanel = () => {
+        const panel = document.querySelector<HTMLElement>('[data-home-panel]');
+        if (!panel) return;
+        const y = panel.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ left: 0, top: Math.max(0, y), behavior: 'instant' });
+        document.documentElement.classList.add('home-scrolled-past-hero');
+      };
+
+      document.addEventListener(
+        'click',
+        (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+          const link = target.closest<HTMLAnchorElement>('[data-back-link]');
+          if (!link) return;
+          if (event.defaultPrevented || event.button !== 0) return;
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+          const canUseHistory =
+            sessionStorage.getItem(NAV_FLAG) === '1' && window.history.length > 1;
+          if (!canUseHistory) return;
+
+          event.preventDefault();
+          event.stopPropagation();
+          window.history.back();
+        },
+        true,
+      );
+
+      document.addEventListener('astro:before-preparation', (event) => {
+        const ev = event as Event & {
+          from?: URL;
+          to: URL;
+          direction?: string;
+          navigationType?: string;
+        };
+        const fromPath = ev.from?.pathname ?? location.pathname;
+        const toPath = ev.to.pathname;
+        const html = document.documentElement;
+
+        delete html.dataset.scrollToPanel;
+        sessionStorage.setItem(NAV_FLAG, '1');
+
+        const isTraverse = ev.navigationType === 'traverse' || ev.direction === 'back';
+        if (isHomePath(toPath) && !isHomePath(fromPath) && !isTraverse) {
+          html.dataset.scrollToPanel = '1';
+        }
+      });
+
+      document.addEventListener('astro:before-swap', (event) => {
+        const ev = event as Event & { newDocument: Document };
+        if (document.documentElement.dataset.scrollToPanel !== '1') return;
+        ev.newDocument.body.classList.add('home-enter-at-panel');
+      });
+
+      document.addEventListener('astro:after-swap', () => {
+        const html = document.documentElement;
+        if (!document.body.classList.contains('body--home')) {
+          html.classList.remove('home-scrolled-past-hero');
+        }
+
+        if (html.dataset.scrollToPanel === '1' || document.body.classList.contains('home-enter-at-panel')) {
+          delete html.dataset.scrollToPanel;
+          scrollToHomePanel();
+          document.body.classList.remove('home-enter-at-panel');
+        }
+      });
+    </script>
+
+    {
+      !compact ? (
+        <script>
+          import { animate, scroll } from 'motion';
+
+          const setupMotionParallax = () => {
+            const root = document.querySelector<HTMLElement>('[data-parallax]');
+            const name = document.querySelector<HTMLElement>('[data-parallax-y]');
+            const link = document.querySelector<HTMLElement>('.masthead__link');
+            const panel = document.querySelector<HTMLElement>('[data-home-panel]');
+            if (!root || !name || !link || !panel) return;
+            if (root.dataset.parallaxBound === 'true') return;
+            root.dataset.parallaxBound = 'true';
+
+            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            const fitName = () => {
+              const available = link.clientWidth;
+              if (!available) return;
+              name.style.fontSize = '100px';
+              const measured = name.scrollWidth;
+              if (!measured) return;
+              name.style.fontSize = `${Math.max(32, (available / measured) * 100)}px`;
+            };
+
+            const bootFit = async () => {
+              fitName();
+              try {
+                await document.fonts?.ready;
+              } catch {
+                /* ignore */
+              }
+              fitName();
+            };
+
+            void bootFit();
+            window.addEventListener('resize', fitName, { passive: true });
+
+            const syncCovered = () => {
+              const covered = panel.getBoundingClientRect().top <= 1;
+              root.classList.toggle('is-covered', covered);
+              document.documentElement.classList.toggle('home-scrolled-past-hero', covered);
+              if (covered) {
+                name.style.opacity = '0';
+                name.style.visibility = 'hidden';
+                name.style.pointerEvents = 'none';
+              } else {
+                name.style.visibility = '';
+                name.style.pointerEvents = '';
+              }
+            };
+
+            window.addEventListener('scroll', syncCovered, { passive: true });
+            syncCovered();
+
+            if (reduced) {
+              name.style.opacity = '1';
+              return;
+            }
+
+            scroll(
+              animate(name, { y: [0, 80], opacity: [1, 0] }, { ease: 'linear' }),
+              {
+                target: root,
+                offset: ['start start', 'end start'],
+              },
+            );
+          };
+
+          setupMotionParallax();
+          document.addEventListener('astro:page-load', setupMotionParallax);
+        </script>
+      ) : null
+    }
   </body>
 </html>

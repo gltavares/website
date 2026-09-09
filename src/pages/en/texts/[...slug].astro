@@ -27,11 +27,20 @@ const altPath = ptMatch
 <Base
   lang="en"
   title={`${entry.data.title} — Gabriel Tavares`}
-  active="texts"
+  active="work"
+  compact
   description={entry.data.description}
   altPath={altPath}
 >
-  <ArticleView lang="en" title={entry.data.title} date={entry.data.date} kind={entry.data.kind}>
-    <Content />
-  </ArticleView>
+  <div transition:name={`text-${entry.id}`}>
+    <ArticleView
+      lang="en"
+      title={entry.data.title}
+      date={entry.data.date}
+      body={entry.body}
+      original={entry.data.original}
+    >
+      <Content />
+    </ArticleView>
+  </div>
 </Base>

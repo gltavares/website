@@ -1,0 +1,62 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const year = new Date().getFullYear();
+
+const dogs = [
+  { id: 'fuba', name: 'fubá', src: `${base}/about/dog1.png` },
+  { id: 'cocada', name: 'cocada', src: `${base}/about/dog2.png` },
+];
+---
+
+<div class="avatar-group" data-photos-dogs>
+  <div class="avatar-group__list" role="list" hidden>
+    {
+      dogs.map((dog) => (
+        <button
+          class="avatar-group__item"
+          type="button"
+          role="listitem"
+          data-dog={dog.id}
+          aria-label={dog.name}
+          tabindex="-1"
+        >
+          <span class="avatar-group__tooltip" aria-hidden="true">{dog.name}</span>
+          <span class="avatar-group__avatar">
+            <img src={dog.src} alt="" width="24" height="24" />
+          </span>
+        </button>
+      ))
+    }
+  </div>
+  <button class="avatar-group__year" type="button" data-dogs-toggle aria-expanded="false">
+    {year}
+  </button>
+</div>
+
+<script>
+  const bind = (root: HTMLElement) => {
+    if (root.dataset.bound === 'true') return;
+    root.dataset.bound = 'true';
+
+    const toggle = root.querySelector<HTMLButtonElement>('[data-dogs-toggle]');
+    const list = root.querySelector<HTMLElement>('.avatar-group__list');
+    if (!toggle || !list) return;
+
+    toggle.addEventListener('click', () => {
+      const open = !root.classList.contains('is-revealed');
+      root.classList.toggle('is-revealed', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      list.hidden = !open;
+      list.querySelectorAll<HTMLButtonElement>('.avatar-group__item').forEach((item) => {
+        item.tabIndex = open ? 0 : -1;
+      });
+    });
+  };
+
+  const bindAll = () => {
+    document.querySelectorAll<HTMLElement>('[data-photos-dogs]').forEach(bind);
+  };
+
+  bindAll();
+  document.addEventListener('astro:page-load', bindAll);
+</script>

@@ -1,6 +1,7 @@
 ---
-import { type Lang } from '../i18n/ui';
+import PhotosDogs from './PhotosDogs.astro';
 import LangSwitcher from './LangSwitcher.astro';
+import { type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -8,10 +9,9 @@ interface Props {
   altPath?: string;
 }
 const { lang, path, altPath } = Astro.props;
-const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <LangSwitcher lang={lang} path={path} altPath={altPath} />
-  <span>© {year}</span>
+  <PhotosDogs />
 </footer>

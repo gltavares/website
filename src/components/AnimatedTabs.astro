@@ -1,0 +1,152 @@
+---
+import { type Lang } from '../i18n/ui';
+import { useTranslations, localePath } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  active?: 'work' | 'about';
+}
+const { lang, active } = Astro.props;
+const t = useTranslations(lang);
+const linkedin = 'https://www.linkedin.com/in/gltavares/';
+
+const items = [
+  { id: 'work', label: t('nav.work'), href: localePath(lang, ''), current: active === 'work' },
+  {
+    id: 'about',
+    label: t('nav.about'),
+    href: localePath(lang, 'about'),
+    current: active === 'about',
+  },
+  { id: 'linkedin', label: 'linkedin', href: linkedin, external: true, current: false },
+] as const;
+---
+
+<nav
+  class="tabs"
+  data-animated-tabs
+  data-active={active ?? 'work'}
+  transition:name="site-tabs"
+  transition:persist="site-tabs"
+  aria-label={lang === 'pt-br' ? 'Navegação' : 'Navigation'}
+>
+  <div class="tabs__track">
+    <span class="tabs__pill" data-tabs-pill aria-hidden="true"></span>
+    {
+      items.map((item) =>
+        'external' in item && item.external ? (
+          <a class="tabs__item" href={item.href} target="_blank" rel="noopener noreferrer" data-tabs-item>
+            {item.label}
+            <img
+              class="icon-arrow"
+              src={`${import.meta.env.BASE_URL}icons/arrow-link.png`}
+              alt=""
+              width="20"
+              height="20"
+            />
+          </a>
+        ) : (
+          <a
+            class="tabs__item"
+            href={item.href}
+            aria-current={item.current ? 'page' : undefined}
+            data-tabs-item
+            data-tab={item.id}
+            data-active={item.current ? 'true' : undefined}
+          >
+            {item.label}
+          </a>
+        ),
+      )
+    }
+  </div>
+</nav>
+
+<script>
+  const positionPill = (root: HTMLElement, animate = true) => {
+    const track = root.querySelector<HTMLElement>('.tabs__track');
+    const pill = root.querySelector<HTMLElement>('[data-tabs-pill]');
+    if (!track || !pill) return;
+    const active =
+      root.querySelector<HTMLElement>('[data-tabs-item][aria-current="page"]') ||
+      root.querySelector<HTMLElement>('[data-tabs-item][data-active="true"]');
+    if (!active) {
+      pill.style.opacity = '0';
+      return;
+    }
+    const trackBox = track.getBoundingClientRect();
+    const itemBox = active.getBoundingClientRect();
+    if (!animate) {
+      pill.style.transition = 'none';
+    }
+    pill.style.opacity = '1';
+    pill.style.width = `${itemBox.width}px`;
+    pill.style.transform = `translateX(${itemBox.left - trackBox.left}px)`;
+    if (!animate) {
+      void pill.offsetWidth;
+      pill.style.transition = '';
+    }
+  };
+
+  const setActiveTab = (root: HTMLElement, tabId: string, animate = true) => {
+    root.querySelectorAll<HTMLElement>('[data-tabs-item][data-tab]').forEach((item) => {
+      const on = item.dataset.tab === tabId;
+      if (on) {
+        item.setAttribute('aria-current', 'page');
+        item.dataset.active = 'true';
+      } else {
+        item.removeAttribute('aria-current');
+        delete item.dataset.active;
+      }
+    });
+    root.dataset.active = tabId;
+    positionPill(root, animate);
+  };
+
+  const tabIdFromPath = () => {
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    return path === '/about' || path === '/en/about' ? 'about' : 'work';
+  };
+
+  const bindRoot = (root: HTMLElement) => {
+    if (root.dataset.tabsBound === 'true') {
+      setActiveTab(root, tabIdFromPath(), false);
+      return;
+    }
+    root.dataset.tabsBound = 'true';
+
+    root.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const link = target.closest<HTMLAnchorElement>('[data-tabs-item][data-tab]');
+      if (!link || link.target === '_blank') return;
+      const tabId = link.dataset.tab;
+      if (!tabId) return;
+      setActiveTab(root, tabId, true);
+    });
+
+    setActiveTab(root, tabIdFromPath(), false);
+  };
+
+  const setup = () => {
+    document.querySelectorAll<HTMLElement>('[data-animated-tabs]').forEach(bindRoot);
+  };
+
+  setup();
+
+  const w = window as Window & { __gtTabsChrome?: boolean };
+  if (!w.__gtTabsChrome) {
+    w.__gtTabsChrome = true;
+    window.addEventListener('resize', () => {
+      document.querySelectorAll<HTMLElement>('[data-animated-tabs]').forEach((root) => {
+        positionPill(root, false);
+      });
+    });
+    document.addEventListener('astro:page-load', setup);
+    document.addEventListener('astro:after-swap', () => {
+      document.querySelectorAll<HTMLElement>('[data-animated-tabs]').forEach((root) => {
+        setActiveTab(root, tabIdFromPath(), false);
+      });
+    });
+  }
+</script>

@@ -1,8 +1,9 @@
 ---
-title: "#226 A solução é sempre digital? — Os Agilistas"
+title: "#226 A solução é sempre digital?"
 date: 2022-06-01
 lang: pt-br
 kind: Podcast
+subtitle: Os Agilistas
 description: Participação no podcast Os Agilistas.
 external: https://open.spotify.com/episode/6Jp8lXJ9xvleZOOjrpPmT9
 tags: [Podcast, Ágil, Produto]

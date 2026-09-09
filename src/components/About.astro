@@ -1,66 +1,345 @@
 ---
 import { type Lang } from '../i18n/ui';
-import { useTranslations } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = useTranslations(lang);
 const pt = lang === 'pt-br';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const photos = [
+  { src: `${base}/about/photo1.png`, alt: 'Gabriel Tavares', ratio: 240 / 285 },
+  { src: `${base}/about/photo2.png`, alt: '', ratio: 240 / 285 },
+];
+
+const brands = [
+  { name: 'Inter', src: `${base}/brands/inter.png` },
+  { name: 'Ale', src: `${base}/brands/ale.svg` },
+  { name: 'Hermes Pardini', src: `${base}/brands/hermes-pardini.svg` },
+  { name: 'The Coca-Cola Company', src: `${base}/brands/coca-cola.png` },
+  { name: 'Landor', src: `${base}/brands/landor.png` },
+  { name: 'WPP', src: `${base}/brands/wpp.png` },
+  { name: 'Localiza', src: `${base}/brands/localiza.svg` },
+  { name: 'Vale', src: `${base}/brands/vale.svg` },
+  { name: 'Pottencial', src: `${base}/brands/pottencial.svg` },
+];
+
+const expertise = pt
+  ? ['workshop', 'product management', 'service design', 'desktop', 'mobile', 'ai processes', 'designOps']
+  : ['workshop', 'product management', 'service design', 'desktop', 'mobile', 'ai processes', 'designOps'];
+
+const stats = pt
+  ? [
+      { label: 'fazendo design há', value: '11 anos' },
+      { label: 'baseado em', value: 'belo horizonte - brasil' },
+      { label: 'idiomas', value: 'português, english, italian (em curso)' },
+    ]
+  : [
+      { label: 'doing design for', value: '11 years' },
+      { label: 'based in', value: 'belo horizonte - brazil' },
+      { label: 'languages', value: 'português, english, italian (ongoing)' },
+    ];
+
+const bio = pt
+  ? [
+      'Oi, eu sou o Gabriel!',
+      'Sou UX Design Specialist, praticante de DesignOps e triatleta amador — interessado em metodologias e em como disciplina operacional e IA elevam o design de produto. Navego entre visual design, facilitação de workshops, pesquisa e product management, com mindset ágil da descoberta à entrega.',
+      'Vejo design como sistema operacional, não só execução visual: arquitetura, contexto compartilhado e lógica de negócio. Meu trabalho concentra-se em construir os trilhos onde a IA cria alavancagem real, deslocando times da geração superficial de UI para Spec-Driven Design, pipelines de contexto unificados e integração estreita entre design e código.',
+      'Nos últimos anos liderei fluxos de produto e design em times multidisciplinares — no Inter e antes na dti digital — escalando operações de discovery à entrega. Seja desenvolvendo tooling agentic, princípios compartilhados ou bases de conhecimento a partir de pesquisa, o foco é tirar atrito para o time construir a coisa certa com consistência.',
+      'Guiado por disciplina — no treino de triathlon ou na arquitetura de operações de design escaláveis.',
+    ]
+  : [
+      "Hi, I'm Gabriel!",
+      "I'm a UX Design Specialist, DesignOps practitioner, and amateur triathlete focused on methodologies and how operational discipline and AI elevate product design. I move across visual design, workshop facilitation, research, and product management — with an agile mindset from discovery to delivery.",
+      'I see design as an operational system, not just visual execution: architecture, shared context, and business logic. My work centers on building the rails where AI creates real leverage, shifting teams away from superficial UI generation toward Spec-Driven Design, unified context pipelines, and tight integration between design and codebases.',
+      "Over the past few years I've led product and design flows across multidisciplinary teams — at Inter and previously at dti digital — scaling design operations from discovery to delivery. Whether developing custom agentic tooling, establishing shared design principles, or turning research into structured knowledge bases, my focus is removing friction so teams build the right things with consistency.",
+      'Driven by discipline — whether training for a triathlon or architecting scalable design operations.',
+    ];
 ---
 
-<h1 class="page-title">{t('about.title')}</h1>
+<div class="about">
+  <aside class="about__aside">
+    <div class="card-stack" data-card-stack role="group" aria-label={pt ? 'Fotos' : 'Photos'}>
+      <ul class="card-stack__list">
+        {
+          photos.map((photo, index) => (
+            <li class="card-stack__item" data-stack-item data-index={index} style={`--ratio: ${photo.ratio}`}>
+              <img src={photo.src} alt={photo.alt} width="240" height="285" draggable="false" />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
 
-<div class="article" style="margin-top:34px;">
-  <div class="prose">
-    {
-      pt ? (
-        <>
-          <p>
-            Olá, meu nome é Gabriel. Sou product designer e triatleta amador, com muito interesse
-            em metodologias e em como melhorar o processo de design.
-          </p>
-          <p>
-            Gosto de resolver problemas sob todas as perspectivas e conduzi-los até a entrega, com
-            uma mentalidade ágil. Com um repertório amplo — design visual, facilitação de
-            workshops, pesquisa e gestão de produto — transito entre processos e áreas dentro de
-            produtos digitais.
-          </p>
-          <p>
-            Nos últimos anos, tive a oportunidade de trabalhar com times multidisciplinares
-            excelentes, gerando valor para diversos clientes e negócios. Também liderei e defini
-            fluxos de desenvolvimento (produto e design) para otimizar as fases de discovery e
-            entrega, sempre buscando formas melhores de criar produtos.
-          </p>
-          <h2>Habilidades</h2>
-          <p>Figma, Sketch, Notion, Illustrator, Photoshop, HTML &amp; CSS.</p>
-          <h2>Clientes</h2>
-          <p>Localiza, Vale, Ale, Hermes Pardini, Pottencial, Supermix, Tribanco, Landor &amp; Fitch.</p>
-        </>
-      ) : (
-        <>
-          <p>
-            Hi, my name is Gabriel. I'm a product designer and amateur triathlete, with a strong
-            interest in methodologies and in how to improve the design process.
-          </p>
-          <p>
-            I love solving problems from every angle and driving them to delivery with an agile
-            mindset. With a wide range of skills — visual design, workshop facilitation, research
-            and product management — I move between processes and areas inside digital products.
-          </p>
-          <p>
-            In the past years I've had the opportunity to work with outstanding multidisciplinary
-            teams, generating value for many clients and businesses. I've also led and defined
-            product and design development flows to optimize discovery and delivery, always looking
-            for better ways to create products.
-          </p>
-          <h2>Skills</h2>
-          <p>Figma, Sketch, Notion, Illustrator, Photoshop, HTML &amp; CSS.</p>
-          <h2>Clients</h2>
-          <p>Localiza, Vale, Ale, Hermes Pardini, Pottencial, Supermix, Tribanco, Landor &amp; Fitch.</p>
-        </>
-      )
-    }
+    <section class="about__expertise" aria-label="expertise">
+      <h2 class="about__label">expertise</h2>
+      <ul class="about__chips">
+        {expertise.map((item) => (
+          <li>
+            <span class="about__chip">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </aside>
+
+  <div class="about__main">
+    <div class="about__bio">
+      {
+        bio.map((p, i) =>
+          i === 0 ? (
+            <p class="about__greeting">{p}</p>
+          ) : (
+            <p>{p}</p>
+          ),
+        )
+      }
+    </div>
+
+    <dl class="about__stats">
+      {
+        stats.map((stat) => (
+          <div class="about__stat">
+            <dt>{stat.label}</dt>
+            <dd>{stat.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <hr class="about__rule" />
+
+    <section class="about__clients" aria-label={pt ? 'Trabalhou para' : 'Worked for'}>
+      <h2 class="about__label">{pt ? 'trabalhou para' : 'worked for'}</h2>
+      <div class="client-row" data-client-carousel>
+        <div class="client-track">
+          {
+            [0, 1].map((set) => (
+              <div class="client-set" aria-hidden={set === 1 ? 'true' : undefined}>
+                {brands.map((b) => (
+                  <span class="client-mark" title={b.name}>
+                    <img src={b.src} alt={set === 0 ? b.name : ''} width="128" height="40" loading="lazy" />
+                  </span>
+                ))}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
   </div>
 </div>
+
+<script>
+  import { animate } from 'motion';
+
+  const setupCardStack = () => {
+    document.querySelectorAll<HTMLElement>('[data-card-stack]').forEach((root) => {
+      if (root.dataset.bound === 'true') return;
+      root.dataset.bound = 'true';
+
+      const items = [...root.querySelectorAll<HTMLElement>('[data-stack-item]')];
+      if (items.length < 2) return;
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const total = items.length;
+      const dismissAt = 110;
+      const velocityAt = 650;
+      const scaleStep = 0.04;
+      const yStep = 16;
+      const xPeek = 8;
+      const backAngleRest = 2;
+      const backAngleHover = 5;
+
+      let currentIndex = 0;
+      let dragging = false;
+      let hovered = false;
+      let startX = 0;
+      let startY = 0;
+      let offsetX = 0;
+      let offsetY = 0;
+      let lastX = 0;
+      let lastT = 0;
+      let velocityX = 0;
+      let activePointer = -1;
+      let busy = false;
+
+      const relativeOf = (index: number) => (index - currentIndex + total) % total;
+
+      const stackPose = (relative: number) => {
+        if (relative === 0) {
+          return { x: 0, y: 0, scale: 1, rotate: 0, opacity: 1 };
+        }
+        const angle = hovered ? backAngleHover : backAngleRest;
+        return {
+          x: xPeek * relative,
+          y: relative * yStep,
+          scale: Math.max(0.86, 1 - relative * scaleStep),
+          rotate: angle,
+          opacity: relative > 2 ? 0 : 1,
+        };
+      };
+
+      const applyLayering = () => {
+        items.forEach((item, index) => {
+          const relative = relativeOf(index);
+          const isTop = relative === 0;
+          item.style.zIndex = String(total - relative);
+          item.dataset.depth = String(relative);
+          item.classList.toggle('is-top', isTop);
+          item.style.pointerEvents = isTop && !busy ? 'auto' : 'none';
+          item.tabIndex = isTop ? 0 : -1;
+        });
+      };
+
+      const settleStack = async (instant = false) => {
+        applyLayering();
+        const jobs = items.map((item, index) => {
+          const pose = stackPose(relativeOf(index));
+          if (instant || reduced) {
+            return animate(item, pose, { duration: 0 }).finished;
+          }
+          return animate(item, pose, { type: 'spring', stiffness: 380, damping: 32 }).finished;
+        });
+        await Promise.all(jobs);
+      };
+
+      const getTop = () => items[currentIndex];
+
+      const advance = async (direction: number) => {
+        if (busy) return;
+        busy = true;
+        applyLayering();
+        const top = getTop();
+        const exitX = direction * (window.innerWidth > 720 ? 420 : 280);
+
+        if (!reduced) {
+          await animate(
+            top,
+            { x: exitX, rotate: direction * 18, opacity: 0, scale: 0.96 },
+            { duration: 0.32, ease: [0.32, 0.72, 0, 1] },
+          ).finished;
+        }
+
+        currentIndex = (currentIndex + 1) % total;
+        await settleStack(false);
+        busy = false;
+        applyLayering();
+      };
+
+      const onPointerDown = (event: PointerEvent) => {
+        if (busy || dragging) return;
+        const top = getTop();
+        if (event.currentTarget !== top) return;
+
+        dragging = true;
+        activePointer = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
+        offsetX = 0;
+        offsetY = 0;
+        lastX = event.clientX;
+        lastT = performance.now();
+        velocityX = 0;
+        root.classList.add('is-dragging');
+        top.classList.add('is-dragging');
+        top.setPointerCapture(event.pointerId);
+      };
+
+      const onPointerMove = (event: PointerEvent) => {
+        if (!dragging || event.pointerId !== activePointer) return;
+        const top = getTop();
+        offsetX = event.clientX - startX;
+        offsetY = event.clientY - startY;
+
+        const now = performance.now();
+        const dt = Math.max(1, now - lastT);
+        velocityX = ((event.clientX - lastX) / dt) * 1000;
+        lastX = event.clientX;
+        lastT = now;
+
+        animate(
+          top,
+          {
+            x: offsetX,
+            y: offsetY * 0.35,
+            rotate: offsetX * 0.05,
+            scale: 1,
+            opacity: 1,
+          },
+          { duration: 0 },
+        );
+      };
+
+      const onPointerUp = async (event: PointerEvent) => {
+        if (!dragging || event.pointerId !== activePointer) return;
+        const top = getTop();
+        top.releasePointerCapture?.(event.pointerId);
+        dragging = false;
+        activePointer = -1;
+        root.classList.remove('is-dragging');
+        top.classList.remove('is-dragging');
+
+        const move = Math.hypot(offsetX, offsetY);
+        const thrown = Math.abs(offsetX) > dismissAt || Math.abs(velocityX) > velocityAt;
+        // Tap / click also advances — same as a light swipe
+        const clicked = move < 8 && Math.abs(velocityX) < 200;
+
+        if (thrown) {
+          await advance(offsetX === 0 ? (velocityX >= 0 ? 1 : -1) : offsetX > 0 ? 1 : -1);
+          return;
+        }
+
+        if (clicked) {
+          await advance(1);
+          return;
+        }
+
+        if (reduced) {
+          await settleStack(true);
+          return;
+        }
+
+        await animate(
+          top,
+          { x: 0, y: 0, rotate: 0, scale: 1, opacity: 1 },
+          { type: 'spring', stiffness: 420, damping: 34 },
+        ).finished;
+      };
+
+      items.forEach((item) => {
+        item.addEventListener('pointerdown', onPointerDown);
+        item.addEventListener('pointermove', onPointerMove);
+        item.addEventListener('pointerup', onPointerUp);
+        item.addEventListener('pointercancel', onPointerUp);
+        item.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            if (event.key === 'ArrowLeft') advance(-1);
+            else advance(1);
+          }
+        });
+      });
+
+      root.addEventListener('pointerenter', () => {
+        if (reduced || dragging || busy) return;
+        hovered = true;
+        void settleStack(false);
+      });
+      root.addEventListener('pointerleave', () => {
+        if (reduced || dragging || busy) {
+          hovered = false;
+          return;
+        }
+        hovered = false;
+        void settleStack(false);
+      });
+
+      settleStack(true);
+    });
+  };
+
+  setupCardStack();
+  document.addEventListener('astro:page-load', setupCardStack);
+</script>
