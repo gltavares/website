@@ -60,7 +60,10 @@ const chromeFade = fade({ duration: '180ms' });
           <div class="parallax__sticky">
             <header class="masthead" data-masthead>
               <a class="masthead__link" href={homeHref} aria-label="Gabriel Tavares">
-                <span class="masthead__name" data-parallax-y data-masthead-name>Gabriel Tavares</span>
+                <span class="masthead__name" data-parallax-y data-masthead-name>
+                  <span class="masthead__word">Gabriel</span>
+                  <span class="masthead__word">Tavares</span>
+                </span>
               </a>
             </header>
           </div>
@@ -74,7 +77,7 @@ const chromeFade = fade({ duration: '180ms' });
       data-home-panel={!compact ? '' : undefined}
     >
       <header class="chrome">
-        <div class="chrome__nav">
+        <div class:list={['chrome__nav', showBack && 'chrome__nav--with-back']}>
           {
             showBack ? (
               <a
@@ -82,7 +85,6 @@ const chromeFade = fade({ duration: '180ms' });
                 href={homeHref}
                 data-back-link
                 transition:name="back-control"
-                transition:animate={chromeFade}
                 aria-label={lang === 'pt-br' ? 'Voltar' : 'Back'}
               >
                 <img
@@ -214,7 +216,11 @@ const chromeFade = fade({ duration: '180ms' });
               const available = link.clientWidth;
               if (!available) return;
               name.style.fontSize = '100px';
-              const measured = name.scrollWidth;
+              const stacked = window.matchMedia('(max-width: 820px)').matches;
+              const words = name.querySelectorAll<HTMLElement>('.masthead__word');
+              const measured = stacked && words.length
+                ? Math.max(0, ...[...words].map((word) => word.scrollWidth))
+                : name.scrollWidth;
               if (!measured) return;
               name.style.fontSize = `${Math.max(32, (available / measured) * 100)}px`;
             };
