@@ -84,7 +84,6 @@ const chromeFade = fade({ duration: '180ms' });
                 class="chrome__back"
                 href={homeHref}
                 data-back-link
-                transition:name="back-control"
                 aria-label={lang === 'pt-br' ? 'Voltar' : 'Back'}
               >
                 <img
@@ -208,7 +207,7 @@ const chromeFade = fade({ duration: '180ms' });
             if (Math.abs(dx) >= 1) {
               tabs.animate(
                 [{ transform: `translateX(${dx}px)` }, { transform: 'translateX(0)' }],
-                { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
+                { duration: 420, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' },
               );
             }
           }
