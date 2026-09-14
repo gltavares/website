@@ -1397,6 +1397,10 @@ html.home-scrolled-past-hero .site {
     line-height: 0.8;
   }
 
+  .masthead {
+    padding-inline: var(--page-inline);
+  }
+
   .chrome__back {
     min-width: 48px;
   }
