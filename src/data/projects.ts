@@ -63,7 +63,7 @@ export function getProjectCards(lang: Lang): ProjectCard[] {
     },
     {
       slug: 'call-center',
-      title: pt ? 'Reserva por telefone' : 'Make your rental over phone',
+      title: pt ? 'Ceres — Central de reservas' : 'Ceres — Reservations call center',
       accent: '#08321c',
       client: 'Localiza',
       media: '/projects/localiza/desktop-5.png',
@@ -207,61 +207,57 @@ export function getProjectCases(lang: Lang): ProjectCase[] {
     },
     {
       slug: 'call-center',
-      title: 'Call center',
+      title: pt
+        ? 'Ceres — Central de Reservas Localiza'
+        : 'Ceres — Localiza Reservations Center',
       name: pt
-        ? 'Criando experiências de reserva por telefone'
-        : 'Designing phone reservation experiences',
+        ? 'Modernização da central telefônica de reservas.'
+        : 'Modernizing the phone reservations call center.',
       client: 'Localiza',
       role: 'Product Designer',
-      period: '2018',
+      period: '2020',
       accent: '#08321c',
       heroMedia: '/projects/localiza/desktop-5.png',
       heroFit: 'contain',
+      facts: [
+        { label: 'client', value: 'Localiza' },
+        { label: 'project', value: 'Ceres' },
+        { label: 'year', value: '2020' },
+      ],
+      lead: pt
+        ? 'Em parceria com a operação da Localiza, atuei como Product Designer na modernização e substituição da central de atendimento telefônico de reservas. Conduzimos a migração completa de uma aplicação legado sem suporte para uma plataforma web ágil, eliminando anotações em papel e a sobrecarga cognitiva dos atendentes. A nova experiência reduziu a curva de treinamento de duas semanas para apenas 3 horas e colocou a primeira reserva real em produção em 5 meses a partir da Design Sprint inicial.'
+        : 'In partnership with Localiza’s operations, I worked as Product Designer on modernizing and replacing the phone reservations call center. We fully migrated an unsupported legacy application to an agile web platform, eliminating paper notes and the cognitive overload on agents. The new experience cut the training curve from two weeks to just 3 hours, and the first live reservation went into production 5 months after the initial Design Sprint.',
       gallery: [{ src: '/projects/localiza/desktop-4.png', alt: '', size: 'wide' }],
       sections: pt
         ? [
             {
-              heading: 'Papel',
-              bullets: [
-                'Contato com usuários e shadowing no papel deles',
-                'Mapeamento de solução em workshops',
-                'Migração do legado para web atendendo dores reais',
-                'Prototipagem e acompanhamento do time de desenvolvimento',
-                'Garantia de que as entregas cobriam as dores mapeadas',
-              ],
+              heading: 'The project',
+              body: 'Ceres é a plataforma web interna para operadores da central telefônica de reservas da Localiza. O produto substituiu um sistema legado complexo e desatualizado, cuja alta curva de aprendizado forçava os atendentes a recorrerem a anotações manuais para consultar tarifas, categorias e regras de negócio. O objetivo foi desenhar uma ferramenta intuitiva, de implementação progressiva e centrada na agilidade da chamada.',
             },
             {
-              heading: 'Sobre o produto',
-              body: 'Sistema usado para reservas de aluguel por telefone. O legado estava desatualizado, sem suporte, com curva alta de aprendizado — o time usava anotações manuais para acompanhar regras. A migração precisava ser simples e progressiva para o atendimento.',
-            },
-            {
-              heading: 'Resultado',
+              heading: 'My role',
               bullets: [
-                'Treinamento caiu de cerca de duas semanas para ~3h de acompanhamento',
-                'Do design sprint à primeira reserva no sistema: 5 meses',
+                'Imersão operacional e shadowing: Conduzi sessões de acompanhamento na prática (shadowing) no atendimento ao vivo para mapear atritos de navegação, consultas paralelas e gargalos de tempo de resposta durante a ligação.',
+                'Workshops e ideação rápida: Facilitei dinâmicas de Design Sprint e cocriação com atendentes, supervisores e time de produto para definir a arquitetura da nova solução.',
+                'Migração de legado para web: Projetei protótipos de alta fidelidade e fluxos web simplificados, traduzindo regras complexas de locação em interfaces limpas e com implementação progressiva.',
+                'Alinhamento e garantia de entrega (QA de Design): Acompanhei de perto o squad de desenvolvimento para assegurar a fidelidade dos componentes, a performance das telas e a aderência às dores operacionais mapeadas.',
+                'Impacto e eficiência operacional: Redução drástica da curva de aprendizado e tempo de treinamento dos operadores (de 2 semanas de onboarding para cerca de 3 horas) e validação em tempo recorde com a primeira reserva concluída no novo sistema em 5 meses.',
               ],
             },
           ]
         : [
             {
-              heading: 'Role',
-              bullets: [
-                'User contact and shadowing in their day-to-day',
-                'Solution mapping in workshops',
-                'Legacy-to-web migration aimed at real pain points',
-                'Prototyping and partnering with engineering',
-                'Keeping delivery aligned with the pains we mapped',
-              ],
+              heading: 'The project',
+              body: 'Ceres is the internal web platform for operators at Localiza’s phone reservations center. The product replaced a complex, outdated legacy system whose steep learning curve forced agents to rely on handwritten notes for rates, categories, and business rules. The goal was to design an intuitive tool, rolled out progressively, centered on call agility.',
             },
             {
-              heading: 'Product',
-              body: 'A system for phone-based car rental reservations. The legacy tool was outdated, unsupported, and hard to learn — agents kept handwritten notes for new rules. Migration had to stay simple and progressive for the support team.',
-            },
-            {
-              heading: 'Impact',
+              heading: 'My role',
               bullets: [
-                'Training dropped from ~two weeks to about 3 hours of guided use',
-                'Design sprint to first live reservation: 5 months',
+                'Operational immersion and shadowing: I ran live-floor shadowing sessions to map navigation friction, parallel lookups, and response-time bottlenecks during calls.',
+                'Workshops and rapid ideation: I facilitated Design Sprint and co-creation sessions with agents, supervisors, and the product team to define the architecture of the new solution.',
+                'Legacy-to-web migration: I designed high-fidelity prototypes and simplified web flows, translating complex rental rules into clean interfaces with progressive implementation.',
+                'Alignment and delivery QA (Design QA): I stayed close to the development squad to ensure component fidelity, screen performance, and adherence to the operational pains we had mapped.',
+                'Impact and operational efficiency: A sharp drop in the operators’ learning curve and training time (from 2 weeks of onboarding to about 3 hours), validated at record speed with the first reservation completed in the new system in 5 months.',
               ],
             },
           ],
