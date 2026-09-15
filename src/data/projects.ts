@@ -268,60 +268,52 @@ export function getProjectCases(lang: Lang): ProjectCase[] {
     },
     {
       slug: 'vale',
-      title: pt ? 'Monitoramento geotécnico' : 'Geotechnical monitoring',
+      title: 'Geotechnical Monitoring',
       name: pt
-        ? 'Garantindo a segurança de estruturas geotécnicas'
-        : 'Keeping geotechnical structures safer',
+        ? 'Digitalização do monitoramento de segurança geotécnica.'
+        : 'Digitizing geotechnical safety monitoring.',
       client: 'Vale',
-      role: pt ? 'Lead Product Designer' : 'Lead Product Designer',
+      role: 'Lead Product Designer',
       period: '2020 — 2021',
       accent: '#282828',
+      facts: [
+        { label: 'client', value: 'Vale' },
+        { label: 'project', value: 'Geotechnical Monitoring' },
+        { label: 'year', value: '2020 — 2021' },
+      ],
+      lead: pt
+        ? 'Em parceria com a Vale, liderei o design de produto na digitalização crítica do monitoramento de segurança geotécnica. Estruturamos a transição do modelo analógico baseado em prancheta e papel para uma plataforma digital integrada, garantindo o acompanhamento em tempo real de barragens e minas de acordo com as normas legais do setor. O produto alcançou mais de 70 estruturas ativas e atingiu um NPS de 8.7 entre operadores e inspetores de campo.'
+        : 'In partnership with Vale, I led product design on the critical digitization of geotechnical safety monitoring. We moved from a clipboard-and-paper analog model to an integrated digital platform, enabling real-time tracking of dams and mines in line with sector legal requirements. The product reached more than 70 active structures and an NPS of 8.7 among operators and field inspectors.',
       sections: pt
         ? [
             {
-              heading: 'Papel',
-              bullets: [
-                'Estruturação do processo de design no time',
-                'Processo operacional escalável no modelo ágil',
-                'Treinamento de novos profissionais',
-                'Padrões visuais e de documentação do produto',
-                'Exploração de oportunidades e evolução do produto',
-                'Mapeamento de processos e workshops',
-              ],
+              heading: 'The project',
+              body: 'Plataforma operacional para gestão e monitoramento contínuo de estruturas geotécnicas críticas (barragens e minas). O produto digitalizou fluxos analógicos de inspeção em campo, centralizou notificações e relatórios de conformidade com a legislação mineral brasileira e estruturou um repositório seguro para documentações legais e auditorias de segurança.',
             },
             {
-              heading: 'Sobre o produto',
-              body: 'Gestão de estruturas geotécnicas — minas e barragens — com monitoramento e notificações alinhados a códigos legais. Migração do acompanhamento analógico (papel e caneta) para o digital, incluindo documentações legais das estruturas.',
-            },
-            {
-              heading: 'Resultado',
+              heading: 'My role',
               bullets: [
-                'NPS 8.7 no app de inspeção e monitoramento',
-                'Mais de 70 estruturas usando a aplicação',
+                'Digitalização de processos de campo: Mapeei fluxos operacionais e conduzi workshops com especialistas de geotecnia para converter rotinas de papel e caneta em um fluxo digital ágil, confiável e adaptado a ambientes industriais.',
+                'Estruturação do time e DesignOps: Estabeleci o processo de design no time de produto, definindo cadências operacionais escaláveis no modelo ágil e conduzindo o treinamento e mentoria de novos designers.',
+                'Design System e documentação: Desenvolvi e implementei padrões visuais de interface e documentação técnica, garantindo consistência entre telas de inspeção móvel e dashboards de controle.',
+                'Estratégia e conformidade regulatória: Traduzi requisitos dos códigos legais e regulatórios do país em regras de negócio, arquitetura de informação e alertas críticos no sistema.',
+                'Impacto e adoção: Conduzi validações contínuas de usabilidade com os inspetores, alcançando NPS 8.7 na ferramenta e adesão direta em mais de 70 estruturas operacionais.',
               ],
             },
           ]
         : [
             {
-              heading: 'Role',
-              bullets: [
-                'Design process for the team',
-                'Scalable agile operating model',
-                'Onboarding new practitioners',
-                'Visual and documentation standards',
-                'Opportunity exploration and product evolution',
-                'Process mapping and workshops',
-              ],
+              heading: 'The project',
+              body: 'An operational platform for managing and continuously monitoring critical geotechnical structures (dams and mines). The product digitized analog field-inspection flows, centralized notifications and compliance reports against Brazilian mining law, and built a secure repository for legal documentation and safety audits.',
             },
             {
-              heading: 'Product',
-              body: 'Managing geotechnical structures — mines and dams — with monitoring and notifications aligned to legal codes. Moving inspection from paper to digital, including legal documentation for each structure.',
-            },
-            {
-              heading: 'Impact',
+              heading: 'My role',
               bullets: [
-                'NPS 8.7 on the inspection & monitoring app',
-                '70+ structures using the product',
+                'Field-process digitization: I mapped operational flows and ran workshops with geotechnical specialists to turn paper-and-pen routines into a digital flow that is agile, reliable, and fit for industrial environments.',
+                'Team structure and DesignOps: I established the design process on the product team, defining scalable agile operating cadences and mentoring new designers.',
+                'Design system and documentation: I developed and implemented visual interface standards and technical documentation, keeping consistency between mobile inspection screens and control dashboards.',
+                'Strategy and regulatory compliance: I translated national legal and regulatory codes into business rules, information architecture, and critical alerts in the system.',
+                'Impact and adoption: I ran ongoing usability validation with inspectors, reaching an NPS of 8.7 on the tool and direct adoption across more than 70 operational structures.',
               ],
             },
           ],
