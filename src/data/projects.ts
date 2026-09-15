@@ -88,78 +88,54 @@ export function getProjectCases(lang: Lang): ProjectCase[] {
       slug: 'scannable',
       title: 'Scannable Experience',
       name: pt
-        ? 'Criando experiências de marcas personalizadas para os seus clientes.'
-        : 'Building personalized brand experiences for every customer.',
+        ? 'Experiência de ponta a ponta de personalização dinâmica por QR code.'
+        : 'End-to-end dynamic personalization experiences via QR code.',
       client: 'Landor',
-      role: pt ? 'Lead Product Designer' : 'Lead Product Designer',
+      role: 'Lead Product Designer',
       period: pt ? '2022 — hoje' : '2022 — present',
       accent: '#008dfa',
       heroMedia: '/projects/scannable.jpg',
+      facts: [
+        { label: 'client', value: 'Landor' },
+        { label: 'project', value: 'Scannable' },
+        { label: 'year', value: pt ? '2022 — hoje' : '2022 — present' },
+      ],
+      lead: pt
+        ? 'Em parceria com grandes marcas e eventos, atuei como Lead Product Designer desenhando a experiência de ponta a ponta de uma plataforma de personalização dinâmica por QR code. Conectamos o gerenciamento de campanhas a um CMS inteligente e a múltiplas fontes de dados em tempo real, permitindo entregar conteúdos contextuais baseados no produto, momento e localização — da gôndola ao show ao vivo.'
+        : 'In partnership with major brands and events, I worked as Lead Product Designer on the end-to-end experience of a dynamic QR-code personalization platform. We connected campaign management to a smart CMS and multiple real-time data sources, delivering contextual content based on product, moment, and place — from the shelf to a live show.',
       externalUrl:
         'https://landorandfitch.com/en/articles/thinking/welcome-to-the-automagical-era-of-scannable-brands',
       sections: pt
         ? [
             {
-              heading: 'Contexto',
-              body: 'Marcas buscam formas mais profundas de se conectar com seus clientes. A proposta deste produto é a personalização dinâmica: conteúdos distintos a cada acesso via QR code, usando múltiplas fontes de dados para reconhecer em tempo real o produto, o momento e o lugar — da prateleira a um show ao vivo.',
+              heading: 'The project',
+              body: 'Scannable é uma plataforma de conexão dinâmica entre marcas e consumidores via QR code. O produto resolve a estática das ativações tradicionais ao transformar cada escaneamento em uma experiência contextual única, orientada por dados de momento, produto e lugar, com um painel web completo para as marcas gerenciarem campanhas e analisarem métricas em tempo real.',
             },
             {
-              heading: 'Papel',
-              body: 'Como Lead Product Designer, idealizei o fluxo de ponta a ponta: da criação de campanhas à experiência do cliente final. O gerenciamento de campanhas virou uma plataforma web conectada a um CMS, com visão de dados para as marcas acompanharem resultados.',
+              heading: 'My role',
               bullets: [
-                'Desenvolvimento da web de gestão de campanhas com conexão a CMS',
-                'Ideação da interface de contato com flexibilidade para qualquer marca, preservando identidade visual',
-                'Criação de templates de conteúdo',
-                'Definição de regras de features com o time de produto',
-                'Arquitetura de informação e fluxo do usuário',
-                'Acompanhamento da implementação e métricas de campanha',
+                'Arquitetura de ponta a ponta: Estruturei os fluxos desde a criação e parametrização de campanhas pelas marcas até a navegação e consumo do usuário final.',
+                'Plataforma web & CMS: Desenhei a ferramenta de gestão conectada a CMS e visão analítica para acompanhamento de performance e métricas de engajamento.',
+                'Design System agnóstico: Criei templates e componentes de interface modulares capazes de absorver identidades visuais de diferentes marcas sem perder consistência técnica.',
+                'Alinhamento de produto e regras de negócio: Defini a arquitetura de informação, cenários de uso e regras de features em conjunto com o time de produto e engenharia.',
+                'Conduzi testes de usabilidade com pessoas no Brasil, NY e Londres validando que clareza de proposta de valor aumenta a propensão ao compartilhamento de localização.',
               ],
-            },
-            {
-              heading: 'Pesquisa — localização e consentimento',
-              body: 'Em resposta ao cenário de privacidade, testamos se as pessoas compartilham localização com mais vontade quando o valor fica explícito. Comparamos dois fluxos no Useberry (178 respostas, 120 completas) com participantes em NY, Londres e dti.',
-              bullets: [
-                'Fluxo 1: pedir localização ao aceitar cookies (abordagem tradicional)',
-                'Fluxo 2: pedir localização com justificativa clara do valor',
-                '56% preferiram o Fluxo 2; clareza ≥3 para 53% vs 32% no Fluxo 1',
-                'Quem normalmente não compartilha localização aceitou mais no Fluxo 2',
-              ],
-            },
-            {
-              heading: 'Achados',
-              body: 'Transparência e justificativa aumentam o consentimento. Caminhos possíveis: enriquecer a página de cookies com explicação antes do pedido, ou refinar o Fluxo 2 para reduzir tom promocional e reforçar interatividade onde o heatmap mostrou expectativa.',
             },
           ]
         : [
             {
-              heading: 'Context',
-              body: 'Brands keep looking for deeper ways to meet their customers. This product centers on dynamic personalization: different content on every QR scan, using multiple data sources to recognize the product, moment, and place in real time — from the shelf to a live show.',
+              heading: 'The project',
+              body: 'Scannable is a dynamic connection platform between brands and consumers via QR code. The product moves past static traditional activations by turning every scan into a unique contextual experience, driven by moment, product, and place data, with a full web dashboard for brands to manage campaigns and analyze metrics in real time.',
             },
             {
-              heading: 'Role',
-              body: 'As Lead Product Designer I shaped the end-to-end flow: from campaign creation to the final customer experience. Campaign management became a CMS-connected web platform with a dedicated data view so brands can follow results.',
+              heading: 'My role',
               bullets: [
-                'Campaign management web with CMS connection',
-                'Flexible customer-facing UI that adapts to any brand identity',
-                'Content templates',
-                'Feature rules with product',
-                'Information architecture and user flows',
-                'Implementation support and campaign metrics',
+                'End-to-end architecture: I structured the flows from campaign creation and setup by brands through to the end user’s navigation and consumption.',
+                'Web platform & CMS: I designed the management tool connected to a CMS and an analytics view for performance and engagement metrics.',
+                'Agnostic design system: I created modular interface templates and components that can absorb different brand identities without losing technical consistency.',
+                'Product alignment and business rules: I defined the information architecture, use scenarios, and feature rules together with product and engineering.',
+                'I ran usability tests with people in Brazil, NY, and London, validating that a clear value proposition increases willingness to share location.',
               ],
-            },
-            {
-              heading: 'Research — location & consent',
-              body: 'Facing evolving privacy expectations, we tested whether people share location more readily when the value is explicit. We compared two flows in Useberry (178 responses, 120 completes) with participants in NY, London, and dti.',
-              bullets: [
-                'Flow 1: request location with cookie acceptance (traditional)',
-                'Flow 2: request location with a clear rationale',
-                '56% preferred Flow 2; clarity ≥3 for 53% vs 32% on Flow 1',
-                'People who rarely share location accepted more often on Flow 2',
-              ],
-            },
-            {
-              heading: 'Findings',
-              body: 'Transparency and justification increase consent. Next paths: enrich the cookies step with explanation before asking, or refine Flow 2 to soften sales copy and meet heatmap expectations for image interactivity.',
             },
           ],
     },

@@ -15,6 +15,19 @@ const articleLabel = lang === 'pt-br' ? 'Artigo Landor' : 'Landor article';
 
 <article class="case">
   {
+    project.heroMedia ? (
+      <ProjectCard
+        title={project.title}
+        accent={project.accent}
+        media={project.heroMedia}
+        heroOnly
+        contain={project.heroFit === 'contain'}
+        transitionName={`project-${project.slug}`}
+      />
+    ) : null
+  }
+
+  {
     project.facts?.length ? (
       <header class="case__intro">
         <h1 class="visually-hidden">{project.title}</h1>
@@ -29,26 +42,14 @@ const articleLabel = lang === 'pt-br' ? 'Artigo Landor' : 'Landor article';
         {project.lead ? <p class="case__lead">{project.lead}</p> : null}
       </header>
     ) : (
-      <>
-        {project.heroMedia ? (
-          <ProjectCard
-            title={project.title}
-            accent={project.accent}
-            media={project.heroMedia}
-            heroOnly
-            contain={project.heroFit === 'contain'}
-            transitionName={`project-${project.slug}`}
-          />
-        ) : null}
-        <header class="case__header">
-          <h1 class="case__title">{project.title}</h1>
-          <p class="case__meta">
-            {project.client}
-            <span aria-hidden="true"> </span>
-            {project.role}
-          </p>
-        </header>
-      </>
+      <header class="case__header">
+        <h1 class="case__title">{project.title}</h1>
+        <p class="case__meta">
+          {project.client}
+          <span aria-hidden="true"> </span>
+          {project.role}
+        </p>
+      </header>
     )
   }
 
