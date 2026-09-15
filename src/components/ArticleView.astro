@@ -1,5 +1,6 @@
 ---
 import { type Lang } from '../i18n/ui';
+import IconArrow from './IconArrow.astro';
 
 interface Props {
   lang: Lang;
@@ -50,13 +51,7 @@ const originalLabel = `${title} (Original)`;
         rel="noopener noreferrer"
       >
         <span>{originalLabel}</span>
-        <img
-          class="icon-arrow"
-          src={`${import.meta.env.BASE_URL}icons/arrow-link.svg`}
-          alt=""
-          width="20"
-          height="20"
-        />
+        <IconArrow name="link" />
       </a>
     ) : null
   }

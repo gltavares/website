@@ -279,10 +279,15 @@ html.home-scrolled-past-hero .site {
   height: 16px;
   width: 16px;
   flex-shrink: 0;
-  color: #000;
-  fill: #000;
+  overflow: visible;
+  fill: #000000;
   filter: none;
   box-shadow: none;
+}
+
+.icon-arrow path {
+  fill: #000000;
+  filter: none;
 }
 
 .icon-link {

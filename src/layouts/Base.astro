@@ -4,6 +4,7 @@ import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import Footer from '../components/Footer.astro';
 import AnimatedTabs from '../components/AnimatedTabs.astro';
+import IconArrow from '../components/IconArrow.astro';
 import { type Lang } from '../i18n/ui';
 import { localePath } from '../i18n/utils';
 
@@ -37,8 +38,8 @@ const chromeFade = fade({ duration: '180ms' });
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.png`} type="image/png" />
-    <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}favicon.png`} />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -86,13 +87,7 @@ const chromeFade = fade({ duration: '180ms' });
                 data-back-link
                 aria-label={lang === 'pt-br' ? 'Voltar' : 'Back'}
               >
-                <img
-                  class="icon-arrow"
-                  src={`${import.meta.env.BASE_URL}icons/arrow-back.svg`}
-                  alt=""
-                  width="20"
-                  height="20"
-                />
+                <IconArrow name="back" />
               </a>
             ) : null
           }

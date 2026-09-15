@@ -1,6 +1,7 @@
 ---
 import { type Lang } from '../i18n/ui';
 import { useTranslations, localePath } from '../i18n/utils';
+import IconArrow from './IconArrow.astro';
 
 interface Props {
   lang: Lang;
@@ -36,13 +37,7 @@ const items = [
         'external' in item && item.external ? (
           <a class="tabs__item" href={item.href} target="_blank" rel="noopener noreferrer" data-tabs-item>
             {item.label}
-            <img
-              class="icon-arrow"
-              src={`${import.meta.env.BASE_URL}icons/arrow-link.svg`}
-              alt=""
-              width="20"
-              height="20"
-            />
+            <IconArrow name="link" />
           </a>
         ) : (
           <a
