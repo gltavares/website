@@ -1,6 +1,14 @@
 import type { Lang } from '../i18n/ui';
 
-export type ProjectSlug = 'scannable' | 'ridesharing' | 'call-center' | 'vale';
+export const PROJECT_SLUGS = [
+  'branding-universe',
+  'scannable',
+  'ridesharing',
+  'call-center',
+  'vale',
+] as const;
+
+export type ProjectSlug = (typeof PROJECT_SLUGS)[number];
 
 export interface ProjectCard {
   slug: ProjectSlug;
@@ -47,6 +55,12 @@ export function getProjectCards(lang: Lang): ProjectCard[] {
   const pt = lang === 'pt-br';
   return [
     {
+      slug: 'branding-universe',
+      title: 'Branding Universe',
+      accent: '#1e1033',
+      client: 'Landor & WPP',
+    },
+    {
       slug: 'scannable',
       title: pt ? 'Experiências scannable' : 'Scannable experiences',
       accent: '#008dfa',
@@ -84,6 +98,58 @@ export function getProjectCase(slug: ProjectSlug, lang: Lang): ProjectCase | und
 export function getProjectCases(lang: Lang): ProjectCase[] {
   const pt = lang === 'pt-br';
   return [
+    {
+      slug: 'branding-universe',
+      title: 'Branding Universe — Landor & WPP',
+      name: pt
+        ? 'Plataforma interna de inteligência de marca com IA generativa.'
+        : 'Internal brand-intelligence platform powered by generative AI.',
+      client: 'Landor & WPP',
+      role: 'Lead Product Designer',
+      period: '2025',
+      accent: '#1e1033',
+      facts: [
+        { label: 'client', value: 'Landor & WPP' },
+        { label: 'project', value: 'Branding Universe' },
+        { label: 'year', value: '2025' },
+      ],
+      lead: pt
+        ? 'Em parceria com a Landor e a WPP, liderei o design de produto e a ideação de uma plataforma interna de inteligência de marca potencializada por IA generativa. O produto foi concebido para automatizar a análise competitiva profunda e o diagnóstico de posicionamento de mercado, gerando dados analíticos e visualizações estratégicas que embasam propostas de novos negócios e projetos das agências. A partir de apenas dois inputs — o nome da marca e seu segmento de atuação —, a plataforma estrutura uma leitura analítica completa da narrativa ao impacto estratégico.'
+        : 'In partnership with Landor and WPP, I led product design and ideation for an internal brand-intelligence platform powered by generative AI. The product was conceived to automate deep competitive analysis and market-positioning diagnosis, producing analytical data and strategic visualizations that underpin new-business proposals and agency projects. From just two inputs — the brand name and its category — the platform builds a complete analytical reading from narrative to strategic impact.',
+      sections: pt
+        ? [
+            {
+              heading: 'The project',
+              body: 'Branding Universe é uma plataforma corporativa com inteligência artificial desenhada para acelerar e aprofundar o processo de inteligência de marca das agências Landor e WPP. A solução substitui levantamentos manuais e dispersos de mercado por um mecanismo automatizado de análise comparativa: avalia a história da marca, mapeia concorrentes diretos e indiretos, identifica vetores estratégicos de impacto e gera relatórios visuais com gráficos acionáveis e minutas de propostas comerciais personalizadas para clientes.',
+            },
+            {
+              heading: 'My role',
+              bullets: [
+                'Ideação e liderança de produto: Conduzi a conceituação do produto e a arquitetura de informação da plataforma, desenhando uma esteira intuitiva capaz de traduzir queries simples em relatórios executivos complexos.',
+                'Mapeamento de inteligência e inputs mínimos: Estruturei o fluxo de interação baseado em atrito mínimo, permitindo que a IA construa ecossistemas completos de benchmarking cruzado informando apenas o nome da marca e o segmento de mercado.',
+                'Visualização de dados e relatórios estratégicos: Projetei interfaces de análise comparativa com dashboards dinâmicos, gráficos de posicionamento de mercado e matrizes de oportunidade de branding.',
+                'Formatação automatizada de propostas comerciais: Desenhei a experiência de geração e personalização de propostas de valor, conectando os insights diagnósticos diretamente às estruturas contratuais e metodologias de projeto da Landor e WPP.',
+                'Alinhamento com engenharia de IA e estratégia de marca: Trabalhei em conjunto com estrategistas seniores de branding e o time de desenvolvimento para calibrar os modelos de linguagem, garantindo rigor analítico, tom de voz corporativo e consistência nas análises competitivas entregues.',
+              ],
+            },
+          ]
+        : [
+            {
+              heading: 'The project',
+              body: 'Branding Universe is a corporate AI platform designed to accelerate and deepen brand-intelligence work at Landor and WPP agencies. The solution replaces manual, scattered market research with an automated comparative-analysis engine: it evaluates brand history, maps direct and indirect competitors, identifies strategic impact vectors, and generates visual reports with actionable charts and customized commercial-proposal drafts for clients.',
+            },
+            {
+              heading: 'My role',
+              bullets: [
+                'Product ideation and leadership: I led the product concept and the platform’s information architecture, designing an intuitive pipeline that turns simple queries into complex executive reports.',
+                'Intelligence mapping and minimal inputs: I structured a minimum-friction interaction flow so the AI can build complete cross-benchmarking ecosystems from only the brand name and market category.',
+                'Data visualization and strategic reports: I designed comparative-analysis interfaces with dynamic dashboards, market-positioning charts, and branding opportunity matrices.',
+                'Automated commercial-proposal formatting: I designed the experience of generating and personalizing value propositions, connecting diagnostic insights directly to Landor and WPP contractual structures and project methodologies.',
+                'Alignment with AI engineering and brand strategy: I worked with senior branding strategists and the development team to calibrate the language models, ensuring analytical rigor, a corporate tone of voice, and consistency in the competitive analyses delivered.',
+              ],
+            },
+          ],
+    },
     {
       slug: 'scannable',
       title: 'Scannable Experience',

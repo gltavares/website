@@ -1,11 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseView from '../../components/CaseView.astro';
-import { getProjectCase, type ProjectSlug } from '../../data/projects';
+import { getProjectCase, PROJECT_SLUGS, type ProjectSlug } from '../../data/projects';
 
 export function getStaticPaths() {
-  const slugs: ProjectSlug[] = ['scannable', 'ridesharing', 'call-center', 'vale'];
-  return slugs.map((slug) => ({ params: { slug } }));
+  return PROJECT_SLUGS.map((slug) => ({ params: { slug } }));
 }
 
 const { slug } = Astro.params;
