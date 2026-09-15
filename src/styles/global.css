@@ -271,14 +271,18 @@ html.home-scrolled-past-hero .site {
 
 .chrome__back .icon-arrow {
   height: 16px;
-  width: auto;
+  width: 16px;
 }
 
 .icon-arrow {
   display: block;
   height: 16px;
-  width: auto;
+  width: 16px;
   flex-shrink: 0;
+  color: #000;
+  fill: #000;
+  filter: none;
+  box-shadow: none;
 }
 
 .icon-link {
@@ -1405,6 +1409,7 @@ html.home-scrolled-past-hero .site {
 
   .masthead {
     padding-inline: var(--page-inline);
+    padding-bottom: clamp(56px, 10vh, 88px);
   }
 
   .chrome__back {
@@ -1413,6 +1418,7 @@ html.home-scrolled-past-hero .site {
 
   .chrome__back .icon-arrow {
     height: 18px;
+    width: 18px;
   }
 
   .layout {
