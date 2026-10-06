@@ -131,6 +131,12 @@ const chromeFade = fade({ duration: '180ms' });
         document.documentElement.classList.add('home-scrolled-past-hero');
       };
 
+      const consumeFeedFlag = () => {
+        if (sessionStorage.getItem('gt:scroll-to-panel') !== '1') return false;
+        sessionStorage.removeItem('gt:scroll-to-panel');
+        return true;
+      };
+
       if (!w.__gtChromeNav) {
         w.__gtChromeNav = true;
         let prevTabsLeft: number | null = null;
@@ -190,7 +196,7 @@ const chromeFade = fade({ duration: '180ms' });
             html.classList.remove('home-scrolled-past-hero');
           }
 
-          if (html.dataset.scrollToPanel === '1' || document.body.classList.contains('home-enter-at-panel')) {
+          if (html.dataset.scrollToPanel === '1' || document.body.classList.contains('home-enter-at-panel') || consumeFeedFlag()) {
             delete html.dataset.scrollToPanel;
             scrollToHomePanel();
             document.body.classList.remove('home-enter-at-panel');
@@ -209,6 +215,11 @@ const chromeFade = fade({ duration: '180ms' });
           }
           prevTabsLeft = null;
         });
+      }
+
+      if (isHomePath(location.pathname) && consumeFeedFlag()) {
+        document.body.classList.add('home-enter-at-panel');
+        scrollToHomePanel();
       }
     </script>
 

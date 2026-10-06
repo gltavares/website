@@ -13,7 +13,7 @@ const t = useTranslations(lang);
 const path = Astro.url.pathname;
 
 const icons = [
-  { id: 'work', label: t('site.icon.work'), href: localePath(lang, ''), name: 'work' as const },
+  { id: 'work', label: t('site.icon.work'), href: localePath(lang, ''), name: 'work' as const, openFeed: true },
   {
     id: 'about',
     label: t('site.icon.about'),
@@ -66,6 +66,7 @@ const icons = [
             class="gate__icon"
             href={icon.href}
             style={`--i: ${index}`}
+            data-open-feed={icon.openFeed ? '' : undefined}
             {...(icon.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           >
             <span class="gate__glyph">
@@ -116,5 +117,16 @@ const icons = [
     document.addEventListener('astro:page-load', () => {
       void boot();
     });
+    document.addEventListener(
+      'click',
+      (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        if (target.closest('[data-open-feed]')) {
+          sessionStorage.setItem('gt:scroll-to-panel', '1');
+        }
+      },
+      true,
+    );
   }
 </script>
