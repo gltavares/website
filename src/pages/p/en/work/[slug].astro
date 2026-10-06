@@ -1,7 +1,7 @@
 ---
-import Base from '../../../layouts/Base.astro';
-import CaseView from '../../../components/CaseView.astro';
-import { getProjectCase, PROJECT_SLUGS, type ProjectSlug } from '../../../data/projects';
+import Base from '../../../../layouts/Base.astro';
+import CaseView from '../../../../components/CaseView.astro';
+import { getProjectCase, PROJECT_SLUGS, type ProjectSlug } from '../../../../data/projects';
 
 export function getStaticPaths() {
   return PROJECT_SLUGS.map((slug) => ({ params: { slug } }));
@@ -9,7 +9,7 @@ export function getStaticPaths() {
 
 const { slug } = Astro.params;
 const project = getProjectCase(slug as ProjectSlug, 'en');
-if (!project) return Astro.redirect('/en/');
+if (!project) return Astro.redirect('/p/en');
 ---
 
 <Base
@@ -18,7 +18,7 @@ if (!project) return Astro.redirect('/en/');
   description={project.name}
   active="work"
   compact
-  altPath={`/work/${project.slug}`}
+  altPath={`/p/work/${project.slug}`}
 >
   <CaseView lang="en" project={project} />
 </Base>

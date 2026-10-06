@@ -745,6 +745,166 @@ html.home-scrolled-past-hero .site {
   cursor: pointer;
 }
 
+/* Personal website start screen (root) */
+.body--gate {
+  min-height: 100dvh;
+}
+
+.gate {
+  min-height: 100dvh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 16px var(--page-inline) 32px;
+}
+
+.gate__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: var(--chrome-h);
+  max-width: var(--max);
+  width: 100%;
+  margin-inline: auto;
+}
+
+.gate__main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  max-width: var(--max);
+  width: 100%;
+  margin-inline: auto;
+  padding-bottom: 6vh;
+}
+
+.gate__kicker {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.gate__name {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: baseline;
+  column-gap: 0.18em;
+  width: max-content;
+  max-width: 100%;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 12vw, 9rem);
+  text-transform: uppercase;
+  line-height: 0.78;
+  white-space: nowrap;
+}
+
+.gate__word {
+  display: block;
+  flex-shrink: 0;
+}
+
+.gate__role {
+  margin-top: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.gate__blurb {
+  max-width: 38ch;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+.gate__dock {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 4px;
+  padding: 14px 16px;
+  border-radius: 32px;
+  background: #f2f2f2;
+  border: 2px solid var(--hairline);
+}
+
+.gate__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 76px;
+  padding: 4px 8px;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gate__icon {
+    animation: gate-icon-in 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 70ms + 60ms);
+  }
+}
+
+@keyframes gate-icon-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gate__glyph {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.gate__icon:hover .gate__glyph,
+.gate__icon:focus-visible .gate__glyph {
+  transform: translateY(-4px) scale(1.04);
+  background: var(--accent);
+  color: #fff;
+}
+
+.gate__icon:focus-visible {
+  outline: none;
+}
+
+.icon-mark {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+.gate__label {
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--ink-soft);
+}
+
 /* About — fills the single-column layout */
 .about-shell {
   display: block;
@@ -1402,7 +1562,8 @@ html.home-scrolled-past-hero .site {
     height: 120dvh;
   }
 
-  .masthead__name {
+  .masthead__name,
+  .gate__name {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
@@ -1545,7 +1706,9 @@ html.home-scrolled-past-hero .site {
   .masthead__name,
   .avatar-group__item,
   .avatar-group__tooltip,
-  .avatar-group__avatar {
+  .avatar-group__avatar,
+  .gate__icon,
+  .gate__glyph {
     transition: none !important;
     animation: none !important;
   }

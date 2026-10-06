@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import AnimatedTabs from '../components/AnimatedTabs.astro';
 import IconArrow from '../components/IconArrow.astro';
 import { type Lang } from '../i18n/ui';
-import { localePath } from '../i18n/utils';
+import { localePath, sitePath } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -21,6 +21,7 @@ const { lang, title, description, active, altPath, compact = false } = Astro.pro
 const htmlLang = lang === 'pt-br' ? 'pt-BR' : 'en';
 const path = Astro.url.pathname;
 const homeHref = localePath(lang, '');
+const siteHref = sitePath(lang);
 const showBack = compact && active !== 'about';
 const showRail = !compact;
 const desc =
@@ -60,7 +61,7 @@ const chromeFade = fade({ duration: '180ms' });
         <section class="parallax" data-parallax transition:animate={chromeFade}>
           <div class="parallax__sticky">
             <header class="masthead" data-masthead>
-              <a class="masthead__link" href={homeHref} aria-label="Gabriel Tavares">
+              <a class="masthead__link" href={siteHref} aria-label="Gabriel Tavares">
                 <span class="masthead__name" data-parallax-y data-masthead-name>
                   <span class="masthead__word">Gabriel</span>
                   <span class="masthead__word">Tavares</span>
@@ -119,7 +120,7 @@ const chromeFade = fade({ duration: '180ms' });
 
       const isHomePath = (pathname: string) => {
         const p = pathname.replace(/\/+$/, '') || '/';
-        return p === '/' || p === '/en';
+        return p === '/p' || p === '/p/en';
       };
 
       const scrollToHomePanel = () => {

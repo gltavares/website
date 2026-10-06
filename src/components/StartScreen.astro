@@ -1,0 +1,120 @@
+---
+import { type Lang } from '../i18n/ui';
+import { localePath, sitePath, useTranslations } from '../i18n/utils';
+import LangSwitcher from './LangSwitcher.astro';
+import PhotosDogs from './PhotosDogs.astro';
+import IconMark from './IconMark.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const path = Astro.url.pathname;
+
+const icons = [
+  { id: 'work', label: t('site.icon.work'), href: localePath(lang, ''), name: 'work' as const },
+  {
+    id: 'about',
+    label: t('site.icon.about'),
+    href: localePath(lang, 'about'),
+    name: 'about' as const,
+  },
+  {
+    id: 'linkedin',
+    label: t('site.icon.linkedin'),
+    href: 'https://www.linkedin.com/in/gltavares/',
+    name: 'linkedin' as const,
+    external: true,
+  },
+  {
+    id: 'email',
+    label: t('site.icon.email'),
+    href: 'mailto:ltrs.gabriel@gmail.com',
+    name: 'email' as const,
+    external: true,
+  },
+  {
+    id: 'github',
+    label: t('site.icon.github'),
+    href: 'https://github.com/gltavares',
+    name: 'github' as const,
+    external: true,
+  },
+];
+---
+
+<div class="gate">
+  <header class="gate__bar">
+    <LangSwitcher lang={lang} path={path} altPath={sitePath(lang === 'pt-br' ? 'en' : 'pt-br')} />
+    <PhotosDogs />
+  </header>
+
+  <main class="gate__main">
+    <p class="gate__kicker">website</p>
+    <h1 class="gate__name" data-gate-name>
+      <span class="gate__word">Gabriel</span>
+      <span class="gate__word">Tavares</span>
+    </h1>
+    <p class="gate__role">{t('site.role')}</p>
+    <p class="gate__blurb">{t('site.blurb')}</p>
+
+    <nav class="gate__dock" aria-label={t('site.iconsLabel')}>
+      {
+        icons.map((icon, index) => (
+          <a
+            class="gate__icon"
+            href={icon.href}
+            style={`--i: ${index}`}
+            {...(icon.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            <span class="gate__glyph">
+              <IconMark name={icon.name} />
+            </span>
+            <span class="gate__label">{icon.label}</span>
+          </a>
+        ))
+      }
+    </nav>
+  </main>
+</div>
+
+<script>
+  const fitName = () => {
+    const name = document.querySelector<HTMLElement>('[data-gate-name]');
+    if (!name) return;
+    const parent = name.parentElement;
+    if (!parent) return;
+    const available = parent.clientWidth;
+    if (!available) return;
+    name.style.fontSize = '120px';
+    const stacked = window.matchMedia('(max-width: 820px)').matches;
+    const words = name.querySelectorAll<HTMLElement>('.gate__word');
+    const measured =
+      stacked && words.length
+        ? Math.max(0, ...[...words].map((word) => word.scrollWidth))
+        : name.scrollWidth;
+    if (!measured) return;
+    name.style.fontSize = `${Math.max(40, (available / measured) * 120)}px`;
+  };
+
+  const boot = async () => {
+    fitName();
+    try {
+      await document.fonts?.ready;
+    } catch {
+      /* ignore */
+    }
+    fitName();
+  };
+
+  const w = window as Window & { __gtGateFit?: boolean };
+  void boot();
+  if (!w.__gtGateFit) {
+    w.__gtGateFit = true;
+    window.addEventListener('resize', fitName, { passive: true });
+    document.addEventListener('astro:page-load', () => {
+      void boot();
+    });
+  }
+</script>

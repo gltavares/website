@@ -35,7 +35,7 @@ Step-by-step instructions for deploying this Astro site to GitHub Pages and poin
 
 ## Checklist: Custom domain (Squarespace DNS → GitHub Pages)
 
-This site uses the apex domain **`gltavares.com`**, served from GitHub Pages (`gltavares.github.io`).
+The site is served from the custom domain **`gltavares.com`**. The personal website lives at `/` (English at `/en`). The portfolio lives at `/p` (English at `/p/en`). Old portfolio URLs (`/about`, `/work/…`, `/texts/…`) redirect into `/p`.
 
 The repo side is already configured: `public/CNAME` pins `gltavares.com`, and `astro.config.mjs` sets `site: 'https://gltavares.com'` with `base: '/'`.
 

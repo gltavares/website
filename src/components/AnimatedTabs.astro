@@ -99,7 +99,7 @@ const items = [
 
   const tabIdFromPath = () => {
     const path = location.pathname.replace(/\/+$/, '') || '/';
-    return path === '/about' || path === '/en/about' ? 'about' : 'work';
+    return path === '/p/about' || path === '/p/en/about' ? 'about' : 'work';
   };
 
   const bindRoot = (root: HTMLElement) => {

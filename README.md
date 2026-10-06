@@ -1,6 +1,9 @@
 # Gabriel Tavares — website
 
-Personal portfolio and texts site for UX/product designer Gabriel Tavares. Built with [Astro 5](https://astro.build) as a static site and deployed to [GitHub Pages](https://pages.github.com/) via GitHub Actions.
+Personal website and portfolio for UX/product designer Gabriel Tavares. Built with [Astro 5](https://astro.build) as a static site and deployed to [GitHub Pages](https://pages.github.com/) via GitHub Actions.
+
+- **Website** (`/` and `/en/`): start screen with icon shortcuts.
+- **Portfolio** (`/p` and `/p/en`): work, about, and texts. Old URLs such as `/about` and `/work/…` redirect here.
 
 ## Local development
 
@@ -18,15 +21,15 @@ npm run preview  # serve the production build locally
 ```
 .
 ├── src/
-│   ├── pages/              # Routes (PT-BR at root, EN under /en/)
+│   ├── pages/              # `/` website, `/p` portfolio (EN under `/en` and `/p/en`)
 │   ├── layouts/
-│   │   └── Base.astro      # Shared page shell
+│   │   ├── Gate.astro      # Website start screen shell
+│   │   └── Base.astro      # Portfolio page shell
 │   ├── components/
-│   │   ├── Header.astro
+│   │   ├── StartScreen.astro
+│   │   ├── Sidebar.astro
 │   │   ├── Footer.astro
-│   │   ├── HomeView.astro  # Hero + bento grid
-│   │   ├── Bento.astro
-│   │   ├── TextsList.astro
+│   │   ├── Feed.astro
 │   │   ├── ArticleView.astro
 │   │   └── LangSwitcher.astro
 │   ├── content/
@@ -83,8 +86,8 @@ The Beni display font in `public/fonts/` is the **demo/trial** version. To use t
 
 ## i18n
 
-- **PT-BR** is the default locale, served at `/`.
-- **English** is served under `/en/`.
+- **PT-BR** is the default locale (`/` website, `/p` portfolio).
+- **English** is served under `/en/` (website) and `/p/en` (portfolio).
 - UI strings live in `src/i18n/ui.ts`.
 
 ## Design rules

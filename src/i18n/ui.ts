@@ -14,6 +14,14 @@ export const ui = {
     'sidebar.description':
       'Product designer. UX, operações e processos — facilitação, times, design systems, interações e produto.',
     'about.title': 'Sobre',
+    'site.role': 'product designer',
+    'site.blurb': 'UX, operações e processos — IA, times e produto.',
+    'site.icon.work': 'trabalho',
+    'site.icon.about': 'sobre',
+    'site.icon.linkedin': 'linkedin',
+    'site.icon.email': 'email',
+    'site.icon.github': 'github',
+    'site.iconsLabel': 'Atalhos',
   },
   en: {
     'nav.work': 'work',
@@ -22,5 +30,13 @@ export const ui = {
     'sidebar.description':
       'Product designer. UX, operations and processes — facilitation, teams, design systems, interactions and product.',
     'about.title': 'About',
+    'site.role': 'product designer',
+    'site.blurb': 'UX, operations and processes — AI, teams and product.',
+    'site.icon.work': 'work',
+    'site.icon.about': 'about',
+    'site.icon.linkedin': 'linkedin',
+    'site.icon.email': 'email',
+    'site.icon.github': 'github',
+    'site.iconsLabel': 'Shortcuts',
   },
 } as const;

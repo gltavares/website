@@ -17,4 +17,12 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  redirects: {
+    '/about': '/p/about',
+    '/work/[slug]': '/p/work/[slug]',
+    '/texts/[...slug]': '/p/texts/[...slug]',
+    '/en/about': '/p/en/about',
+    '/en/work/[slug]': '/p/en/work/[slug]',
+    '/en/texts/[...slug]': '/p/en/texts/[...slug]',
+  },
 });
