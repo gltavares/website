@@ -113,7 +113,7 @@ The repo side is already configured: `public/CNAME` pins `gltavares.com`, and `a
 
 - Check the **Actions** log for the `build` job
 - Ensure `package-lock.json` is committed and `npm run build` succeeds locally
-- The workflow uses Node 22 (`node-version: 22` in `withastro/action@v3`)
+- The workflow uses Node 22.23.4 (`node-version: 22.23.4` in `withastro/action@v3`). Astro 7.4.2 will not build on an older Node 22.
 
 ### Custom domain not verifying
 
