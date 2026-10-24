@@ -10,6 +10,9 @@ export default defineConfig({
   site: 'https://gltavares.com',
   base: '/',
   trailingSlash: 'ignore',
+  // Astro 7 defaults this to 'jsx', which drops the spaces between inline
+  // elements (the language switcher is "pt | en" only because of that space).
+  compressHTML: true,
   i18n: {
     defaultLocale: 'pt-br',
     locales: ['pt-br', 'en'],
